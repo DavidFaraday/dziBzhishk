@@ -1,0 +1,598 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		55F124C5251720E100DB29C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124C4251720E100DB29C2 /* AppDelegate.swift */; };
+		55F124C7251720E100DB29C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124C6251720E100DB29C2 /* SceneDelegate.swift */; };
+		55F124C9251720E100DB29C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124C8251720E100DB29C2 /* ViewController.swift */; };
+		55F124CC251720E100DB29C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55F124CA251720E100DB29C2 /* Main.storyboard */; };
+		55F124CE251720E200DB29C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F124CD251720E200DB29C2 /* Assets.xcassets */; };
+		55F124D1251720E200DB29C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55F124CF251720E200DB29C2 /* LaunchScreen.storyboard */; };
+		55F124DC251720E200DB29C2 /* HorseDoctorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124DB251720E200DB29C2 /* HorseDoctorTests.swift */; };
+		55F124E7251720E200DB29C2 /* HorseDoctorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124E6251720E200DB29C2 /* HorseDoctorUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		55F124D8251720E200DB29C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55F124B9251720E100DB29C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55F124C0251720E100DB29C2;
+			remoteInfo = HorseDoctor;
+		};
+		55F124E3251720E200DB29C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55F124B9251720E100DB29C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55F124C0251720E100DB29C2;
+			remoteInfo = HorseDoctor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		55F124C1251720E100DB29C2 /* HorseDoctor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HorseDoctor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55F124C4251720E100DB29C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		55F124C6251720E100DB29C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		55F124C8251720E100DB29C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		55F124CB251720E100DB29C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		55F124CD251720E200DB29C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		55F124D0251720E200DB29C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		55F124D2251720E200DB29C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55F124D7251720E200DB29C2 /* HorseDoctorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HorseDoctorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55F124DB251720E200DB29C2 /* HorseDoctorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseDoctorTests.swift; sourceTree = "<group>"; };
+		55F124DD251720E200DB29C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55F124E2251720E200DB29C2 /* HorseDoctorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HorseDoctorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55F124E6251720E200DB29C2 /* HorseDoctorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseDoctorUITests.swift; sourceTree = "<group>"; };
+		55F124E8251720E200DB29C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		55F124BE251720E100DB29C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55F124D4251720E200DB29C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55F124DF251720E200DB29C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		55F124B8251720E100DB29C2 = {
+			isa = PBXGroup;
+			children = (
+				55F124C3251720E100DB29C2 /* HorseDoctor */,
+				55F124DA251720E200DB29C2 /* HorseDoctorTests */,
+				55F124E5251720E200DB29C2 /* HorseDoctorUITests */,
+				55F124C2251720E100DB29C2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		55F124C2251720E100DB29C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55F124C1251720E100DB29C2 /* HorseDoctor.app */,
+				55F124D7251720E200DB29C2 /* HorseDoctorTests.xctest */,
+				55F124E2251720E200DB29C2 /* HorseDoctorUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		55F124C3251720E100DB29C2 /* HorseDoctor */ = {
+			isa = PBXGroup;
+			children = (
+				55F124C4251720E100DB29C2 /* AppDelegate.swift */,
+				55F124C6251720E100DB29C2 /* SceneDelegate.swift */,
+				55F124C8251720E100DB29C2 /* ViewController.swift */,
+				55F124CA251720E100DB29C2 /* Main.storyboard */,
+				55F124CD251720E200DB29C2 /* Assets.xcassets */,
+				55F124CF251720E200DB29C2 /* LaunchScreen.storyboard */,
+				55F124D2251720E200DB29C2 /* Info.plist */,
+			);
+			path = HorseDoctor;
+			sourceTree = "<group>";
+		};
+		55F124DA251720E200DB29C2 /* HorseDoctorTests */ = {
+			isa = PBXGroup;
+			children = (
+				55F124DB251720E200DB29C2 /* HorseDoctorTests.swift */,
+				55F124DD251720E200DB29C2 /* Info.plist */,
+			);
+			path = HorseDoctorTests;
+			sourceTree = "<group>";
+		};
+		55F124E5251720E200DB29C2 /* HorseDoctorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				55F124E6251720E200DB29C2 /* HorseDoctorUITests.swift */,
+				55F124E8251720E200DB29C2 /* Info.plist */,
+			);
+			path = HorseDoctorUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		55F124C0251720E100DB29C2 /* HorseDoctor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55F124EB251720E200DB29C2 /* Build configuration list for PBXNativeTarget "HorseDoctor" */;
+			buildPhases = (
+				55F124BD251720E100DB29C2 /* Sources */,
+				55F124BE251720E100DB29C2 /* Frameworks */,
+				55F124BF251720E100DB29C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HorseDoctor;
+			productName = HorseDoctor;
+			productReference = 55F124C1251720E100DB29C2 /* HorseDoctor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		55F124D6251720E200DB29C2 /* HorseDoctorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55F124EE251720E200DB29C2 /* Build configuration list for PBXNativeTarget "HorseDoctorTests" */;
+			buildPhases = (
+				55F124D3251720E200DB29C2 /* Sources */,
+				55F124D4251720E200DB29C2 /* Frameworks */,
+				55F124D5251720E200DB29C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55F124D9251720E200DB29C2 /* PBXTargetDependency */,
+			);
+			name = HorseDoctorTests;
+			productName = HorseDoctorTests;
+			productReference = 55F124D7251720E200DB29C2 /* HorseDoctorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		55F124E1251720E200DB29C2 /* HorseDoctorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55F124F1251720E200DB29C2 /* Build configuration list for PBXNativeTarget "HorseDoctorUITests" */;
+			buildPhases = (
+				55F124DE251720E200DB29C2 /* Sources */,
+				55F124DF251720E200DB29C2 /* Frameworks */,
+				55F124E0251720E200DB29C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55F124E4251720E200DB29C2 /* PBXTargetDependency */,
+			);
+			name = HorseDoctorUITests;
+			productName = HorseDoctorUITests;
+			productReference = 55F124E2251720E200DB29C2 /* HorseDoctorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		55F124B9251720E100DB29C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					55F124C0251720E100DB29C2 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					55F124D6251720E200DB29C2 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = 55F124C0251720E100DB29C2;
+					};
+					55F124E1251720E200DB29C2 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = 55F124C0251720E100DB29C2;
+					};
+				};
+			};
+			buildConfigurationList = 55F124BC251720E100DB29C2 /* Build configuration list for PBXProject "HorseDoctor" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 55F124B8251720E100DB29C2;
+			productRefGroup = 55F124C2251720E100DB29C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				55F124C0251720E100DB29C2 /* HorseDoctor */,
+				55F124D6251720E200DB29C2 /* HorseDoctorTests */,
+				55F124E1251720E200DB29C2 /* HorseDoctorUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		55F124BF251720E100DB29C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55F124D1251720E200DB29C2 /* LaunchScreen.storyboard in Resources */,
+				55F124CE251720E200DB29C2 /* Assets.xcassets in Resources */,
+				55F124CC251720E100DB29C2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55F124D5251720E200DB29C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55F124E0251720E200DB29C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		55F124BD251720E100DB29C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55F124C9251720E100DB29C2 /* ViewController.swift in Sources */,
+				55F124C5251720E100DB29C2 /* AppDelegate.swift in Sources */,
+				55F124C7251720E100DB29C2 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55F124D3251720E200DB29C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55F124DC251720E200DB29C2 /* HorseDoctorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55F124DE251720E200DB29C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55F124E7251720E200DB29C2 /* HorseDoctorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		55F124D9251720E200DB29C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55F124C0251720E100DB29C2 /* HorseDoctor */;
+			targetProxy = 55F124D8251720E200DB29C2 /* PBXContainerItemProxy */;
+		};
+		55F124E4251720E200DB29C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55F124C0251720E100DB29C2 /* HorseDoctor */;
+			targetProxy = 55F124E3251720E200DB29C2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		55F124CA251720E100DB29C2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55F124CB251720E100DB29C2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		55F124CF251720E200DB29C2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55F124D0251720E200DB29C2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		55F124E9251720E200DB29C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		55F124EA251720E200DB29C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		55F124EC251720E200DB29C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P6AJEE272;
+				INFOPLIST_FILE = HorseDoctor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosdevschool.HorseDoctor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		55F124ED251720E200DB29C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P6AJEE272;
+				INFOPLIST_FILE = HorseDoctor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosdevschool.HorseDoctor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		55F124EF251720E200DB29C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P6AJEE272;
+				INFOPLIST_FILE = HorseDoctorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosdevschool.HorseDoctorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HorseDoctor.app/HorseDoctor";
+			};
+			name = Debug;
+		};
+		55F124F0251720E200DB29C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P6AJEE272;
+				INFOPLIST_FILE = HorseDoctorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosdevschool.HorseDoctorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HorseDoctor.app/HorseDoctor";
+			};
+			name = Release;
+		};
+		55F124F2251720E200DB29C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P6AJEE272;
+				INFOPLIST_FILE = HorseDoctorUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosdevschool.HorseDoctorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HorseDoctor;
+			};
+			name = Debug;
+		};
+		55F124F3251720E200DB29C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P6AJEE272;
+				INFOPLIST_FILE = HorseDoctorUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iosdevschool.HorseDoctorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HorseDoctor;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		55F124BC251720E100DB29C2 /* Build configuration list for PBXProject "HorseDoctor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55F124E9251720E200DB29C2 /* Debug */,
+				55F124EA251720E200DB29C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55F124EB251720E200DB29C2 /* Build configuration list for PBXNativeTarget "HorseDoctor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55F124EC251720E200DB29C2 /* Debug */,
+				55F124ED251720E200DB29C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55F124EE251720E200DB29C2 /* Build configuration list for PBXNativeTarget "HorseDoctorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55F124EF251720E200DB29C2 /* Debug */,
+				55F124F0251720E200DB29C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55F124F1251720E200DB29C2 /* Build configuration list for PBXNativeTarget "HorseDoctorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55F124F2251720E200DB29C2 /* Debug */,
+				55F124F3251720E200DB29C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 55F124B9251720E100DB29C2 /* Project object */;
+}
