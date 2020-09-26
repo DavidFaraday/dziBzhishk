@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>457914727580-0ujvi6audquq01goq3m38n1rpogodu4i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.457914727580-0ujvi6audquq01goq3m38n1rpogodu4i</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBjHtjalD4uF3wn9cF5PmdOTZqBGXfd1Dw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>457914727580</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.iosdevschool.HorseDoctor</string>
+	<key>PROJECT_ID</key>
+	<string>horsedoctor-8bf8b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>horsedoctor-8bf8b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:457914727580:ios:4f544ecda7b52b198b8159</string>
+	<key>DATABASE_URL</key>
+	<string>https://horsedoctor-8bf8b.firebaseio.com</string>
+</dict>
+</plist>

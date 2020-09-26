@@ -1,0 +1,49 @@
+//
+//  UserTableViewCell.swift
+//  HorseDoctor
+//
+//  Created by David Kababyan on 20/09/2020.
+//
+
+import UIKit
+
+class UserTableViewCell: UITableViewCell {
+
+    //MARK: - IBOutlets
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    
+    
+    //MARK: - View LiceCycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+    }
+    
+    func configure(user: User) {
+
+        nameLabel.text = user.name
+        statusLabel.text = user.isOnline ? "Online" : "Offline"
+        statusLabel.textColor = user.isOnline ? .systemGreen : .systemRed
+        
+        setAvatar(avatarLink: user.avatarLink)
+    }
+
+    private func setAvatar(avatarLink: String) {
+        
+        if avatarLink != "" {
+            FileStorage.downloadImage(imageUrl: avatarLink) { (avatarImage) in
+                self.avatarImageView.image = avatarImage?.circleMasked
+            }
+        } else {
+            self.avatarImageView.image = UIImage(named: "avatar")
+        }
+    }
+
+}
