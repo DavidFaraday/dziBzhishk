@@ -78,35 +78,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate : UNUserNotificationCenterDelegate {
     
-        func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-             
-            completionHandler()
-
-            let userInfo = response.notification.request.content.userInfo
-
-            guard let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController else {
-                return
-            }
-
-            // root view controller is tab bar controller
-            // the selected tab is a navigation controller
-            // then we push the new view controller to it
-            if let tabBarController = rootViewController as? UITabBarController,
-                let navController = tabBarController.selectedViewController as? UINavigationController {
-
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        completionHandler()
+        
+        let userInfo = response.notification.request.content.userInfo
+        
+        guard let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController else {
+            return
+        }
+        
+        // root view controller is tab bar controller
+        // the selected tab is a navigation controller
+        // then we push the new view controller to it
+        if let tabBarController = rootViewController as? UITabBarController,
+           let navController = tabBarController.selectedViewController as? UINavigationController {
+            
+            //check if its a chat notification
+            if userInfo["chatRoomId"] != nil && userInfo["chatRoomId"] as! String != "" {
+                
                 if let chatView = navController.visibleViewController as? ChatViewController {
                     //we have chat room as current view
                     if chatView.chatId == userInfo["chatRoomId"] as? String {
                         return
                     }
                 }
-                                
+                
                 
                 //we have other view as current view
                 let chatView = ChatViewController(chatId: userInfo["chatRoomId"] as! String, recipientId: userInfo["senderId"] as! String, recipientName: titleFromNotification(payload: userInfo))
-
+                
                 navController.pushViewController(chatView, animated: true)
+                
             }
+        }
     }
 
     //MARK: - Helpers

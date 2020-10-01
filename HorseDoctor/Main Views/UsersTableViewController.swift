@@ -18,7 +18,8 @@ class UsersTableViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.largeTitleDisplayMode = .always
-        
+        tableView.tableFooterView = UIView()
+
         downloadUsers()
     }
 

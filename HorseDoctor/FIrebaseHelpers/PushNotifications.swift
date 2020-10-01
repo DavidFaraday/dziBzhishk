@@ -13,7 +13,7 @@ class PushNotificationService {
     
     private init() {}
     
-    func sendPushNotificationTo(userIds: [String], body: String, chatRoomId: String) {
+    func sendPushNotificationTo(userIds: [String], body: String, chatRoomId: String = "") {
         
         FirebaseUserListener.shared.downloadUser(with: userIds) { (users) in
             
@@ -25,8 +25,21 @@ class PushNotificationService {
             }
         }
     }
+    
+    func sendEmergencyPushNotification(to userType: UserType, body: String) {
+        
+        FirebaseUserListener.shared.downloadUserType(with: userType) { (users) in
+                   
+            for user in users {
+                let title = "\(User.currentUser!.name)  Emergency"
+                
+                self.sendMessageToUser(to: user.pushId, title: title, body: body)
+            }
+        }
+    }
 
-    private func sendMessageToUser(to token: String, title: String, body: String, chatRoomId: String) {
+
+    private func sendMessageToUser(to token: String, title: String, body: String, chatRoomId: String = "") {
         
         let urlString = "https://fcm.googleapis.com/fcm/send"
         

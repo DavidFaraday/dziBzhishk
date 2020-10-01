@@ -15,6 +15,7 @@ class AddEmergencyTableViewController: UITableViewController {
     @IBOutlet weak var typeTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionBackgroundView: UIView!
+    @IBOutlet weak var horseIdTextField: UITextField!
     
     //MARK: - Vars
     var emergencyTypePicker = UIPickerView()
@@ -41,8 +42,9 @@ class AddEmergencyTableViewController: UITableViewController {
         if isDataInputed() {
             
             emergencyToEdit != nil ? updateEmergency() : saveEmergency()
-            //TODO: Send push notification to doctors
 
+            PushNotificationService.shared.sendEmergencyPushNotification(to: .Doctor, body: descriptionTextView.text!)
+            
             navigationController?.popViewController(animated: true)
         } else {
             ProgressHUD.showError("All Fields Are Required!")
@@ -113,20 +115,20 @@ class AddEmergencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row == 2 {
+        if indexPath.row == 3 {
             print("attach image")
         }
     }
     
     //MARK: - Helpers
     private func isDataInputed() -> Bool {
-        return titleTextField.text != "" && typeTextField.text != "" && descriptionTextView.text != ""
+        return titleTextField.text != "" && typeTextField.text != "" && descriptionTextView.text != "" && horseIdTextField.text != ""
     }
 
     //MARK: - Save emergency
     private func saveEmergency() {
         
-        let emergency = EmergencyAlert(id: UUID().uuidString, horseId: "", stableId: User.currentUser!.id, stableName: User.currentUser!.name, title: titleTextField.text!, type: selectedEmergencyType, description: descriptionTextView.text, mediaLink: "", isResponded: false, respondingDoctorId: "", respondingDoctorName: "", respondedDate: Date())
+        let emergency = EmergencyAlert(id: UUID().uuidString, horseId: horseIdTextField.text!, stableId: User.currentUser!.id, stableName: User.currentUser!.name, title: titleTextField.text!, type: selectedEmergencyType, description: descriptionTextView.text, mediaLink: "", isResponded: false, respondingDoctorId: "", respondingDoctorName: "", respondedDate: Date())
         
         FirebaseEmergencyAlertListener.shared.save(emergency: emergency)
         

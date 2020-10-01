@@ -52,6 +52,7 @@
 		5537586625191AAB003B5BCD /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537586525191AAB003B5BCD /* MapViewViewController.swift */; };
 		5537586E25191AE6003B5BCD /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537586D25191AE6003B5BCD /* MapAnnotation.swift */; };
 		5537587325191B94003B5BCD /* StartChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5537587225191B94003B5BCD /* StartChat.swift */; };
+		553D823B25263D82008A8716 /* HorseProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553D823A25263D82008A8716 /* HorseProfileTableViewController.swift */; };
 		553DB390251F0C6600F82D88 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DB38F251F0C6600F82D88 /* PushNotifications.swift */; };
 		555AE998251BAE5500A1D14E /* FirebaseEmergencyAlertListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE997251BAE5500A1D14E /* FirebaseEmergencyAlertListener.swift */; };
 		555AE99D251BAEAB00A1D14E /* EmergencyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE99C251BAEAB00A1D14E /* EmergencyAlert.swift */; };
@@ -134,6 +135,7 @@
 		5537586525191AAB003B5BCD /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
 		5537586D25191AE6003B5BCD /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		5537587225191B94003B5BCD /* StartChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartChat.swift; sourceTree = "<group>"; };
+		553D823A25263D82008A8716 /* HorseProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseProfileTableViewController.swift; sourceTree = "<group>"; };
 		553DB38F251F0C6600F82D88 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
 		555AE997251BAE5500A1D14E /* FirebaseEmergencyAlertListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEmergencyAlertListener.swift; sourceTree = "<group>"; };
 		555AE99C251BAEAB00A1D14E /* EmergencyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyAlert.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				5537586525191AAB003B5BCD /* MapViewViewController.swift */,
 				553757BB25190F4B003B5BCD /* ChatViewController.swift */,
 				551F9146251A696800BE4FBD /* UserProfileTableViewController.swift */,
+				553D823A25263D82008A8716 /* HorseProfileTableViewController.swift */,
 				555AE9AE251BBEAE00A1D14E /* AddEmergencyTableViewController.swift */,
 				551A4648251CFC1800C6C530 /* EmergencyDetailTableViewController.swift */,
 				5537586425191A8A003B5BCD /* ChatViewExtensions */,
@@ -655,6 +658,7 @@
 				553757DB251910CB003B5BCD /* PhotoMessage.swift in Sources */,
 				5525BF992517A3FF00F34229 /* Extensions.swift in Sources */,
 				55375804251911DE003B5BCD /* RealmManager.swift in Sources */,
+				553D823B25263D82008A8716 /* HorseProfileTableViewController.swift in Sources */,
 				5525BF5F2517490C00F34229 /* FinishRegistrationTableViewController.swift in Sources */,
 				555AE9A5251BB6B100A1D14E /* EmergencyTableViewCell.swift in Sources */,
 				5537580D2519121C003B5BCD /* FirebaseMessageListener.swift in Sources */,

@@ -240,7 +240,7 @@ class ChatViewController: MessagesViewController {
                 }
                 
                 for index in deletion {
-                    print("deleted", index)
+//                    print("deleted", index)
                 }
 
             case .error(let error):

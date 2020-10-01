@@ -42,6 +42,8 @@ class EmergencyDetailTableViewController: UITableViewController {
         emergency.respondingDoctorName = User.currentUser?.name ?? "Unknown"
         emergency.respondedDate = Date()
         
+        PushNotificationService.shared.sendPushNotificationTo(userIds: [emergency.stableId], body: "Your emergency is accepted, the doctor will contact you.")
+        
         FirebaseEmergencyAlertListener.shared.save(emergency: emergency)
     }
     
@@ -102,6 +104,8 @@ class EmergencyDetailTableViewController: UITableViewController {
         
         if indexPath == IndexPath(item: 0, section: 0) {
             showStableProfile(with: emergency.stableId)
+        } else if indexPath == IndexPath(item: 1, section: 0) {
+            showHorseProfile(with: emergency.horseId)
         }
     }
 
@@ -141,5 +145,26 @@ class EmergencyDetailTableViewController: UITableViewController {
             }
         }
     }
+    
+    private func showHorseProfile(with horseId: String) {
+        
+        let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HorseProfileView") as! HorseProfileTableViewController
+        self.navigationController?.pushViewController(profileVc, animated: true)
+
+//        FirebaseUserListener.shared.downloadUser(with: [horseId]) { (horses) in
+//
+//            if users.count > 0 {
+//
+//        let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HorseProfileView") as! HorseProfileTableViewController
+//
+//                profileVc.horse = horses.first!
+//
+//                DispatchQueue.main.async {
+//        self.navigationController?.pushViewController(profileVc, animated: true)
+//                }
+//            }
+//        }
+    }
+
 
 }

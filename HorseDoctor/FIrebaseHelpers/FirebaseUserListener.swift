@@ -57,7 +57,6 @@ class FirebaseUserListener {
                 }
 
                 let user = try? document.data(as: User.self)
-                //TODO: check if ok
 
                 usersArray.append(user!)
                 count += 1
