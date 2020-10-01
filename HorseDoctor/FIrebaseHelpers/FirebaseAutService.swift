@@ -30,7 +30,7 @@ class FirebaseAuthService {
     }
 
     //MARK: - Register
-    func registerUserWith(email: String, password: String, completion: @escaping (_ error: Error?) -> Void ) {
+    func registerUserWith(with email: String, password: String, type: UserType, completion: @escaping (_ error: Error?) -> Void ) {
         
         print("<<<<Debug Register User")
 
@@ -42,7 +42,7 @@ class FirebaseAuthService {
 
                 //create user and save it
                 if authDataResult?.user != nil {
-                    let user = User(id: authDataResult!.user.uid, name: email, email: email, pushId: "", avatarLink: "", address: "", telephone: "", mobilePhone: "", isOnboardingCompleted: false, userType: UserType.Stable.rawValue, isOnline: false)
+                    let user = User(id: authDataResult!.user.uid, name: email, email: email, pushId: "", avatarLink: "", address: "", telephone: "", mobilePhone: "", isOnboardingCompleted: false, userType: type, isOnline: false)
                                         
                     FirebaseUserListener.shared.saveUserLocally(user)
                     FirebaseUserListener.shared.saveUserToFireStore(user)

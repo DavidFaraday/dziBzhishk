@@ -20,26 +20,30 @@ class AddEmergencyTableViewController: UITableViewController {
     var emergencyTypePicker = UIPickerView()
     var selectedEmergencyType = EmergencyType.Orthopaedic.rawValue
     
+    var emergencyToEdit: EmergencyAlert?
+    
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
         tableView.tableFooterView = UIView()
         configureTypePickerView()
         setTextFieldDelegate()
         configureLeftBarButton()
+        
+        if emergencyToEdit != nil {
+            setupEditView()
+        }
     }
 
     //MARK: - IBActions
     @IBAction func saveBarButtonPressed(_ sender: Any) {
         if isDataInputed() {
             
-            saveEmergency()
-            //TODO: Send push notification to stable
+            emergencyToEdit != nil ? updateEmergency() : saveEmergency()
+            //TODO: Send push notification to doctors
 
             navigationController?.popViewController(animated: true)
-
         } else {
             ProgressHUD.showError("All Fields Are Required!")
         }
@@ -68,6 +72,12 @@ class AddEmergencyTableViewController: UITableViewController {
     
     private func setTextFieldDelegate() {
         typeTextField.inputView = emergencyTypePicker
+    }
+    
+    private func setupEditView() {
+        titleTextField.text = emergencyToEdit!.title
+        typeTextField.text = emergencyToEdit!.type
+        descriptionTextView.text = emergencyToEdit!.description
     }
     
     //MARK: -  Configuration
@@ -122,6 +132,14 @@ class AddEmergencyTableViewController: UITableViewController {
         
     }
 
+    private func updateEmergency() {
+            
+        emergencyToEdit!.title = titleTextField.text!
+        emergencyToEdit!.type = typeTextField.text!
+        emergencyToEdit!.description = descriptionTextView.text!
+        
+        FirebaseEmergencyAlertListener.shared.save(emergency: emergencyToEdit!)
+    }
 
 }
 

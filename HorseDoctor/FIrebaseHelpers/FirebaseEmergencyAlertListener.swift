@@ -18,9 +18,11 @@ class FirebaseEmergencyAlertListener {
     ///
     /// - Parameters:
     ///   - callback: All up to date recents of current user.
-    func listenForEmergencyAlerts(completion: @escaping (_ allRecents: [EmergencyAlert]) -> Void) {
+    func listenForEmergencyAlerts(for userType: UserType, completion: @escaping (_ allRecents: [EmergencyAlert]) -> Void) {
 
-        FirebaseReference(.Emergency).whereField(AppConstants.stableId.rawValue, isEqualTo: User.currentId).addSnapshotListener() { (querySnapshot, error) in
+        let query = userType == .Stable ? FirebaseReference(.Emergency).whereField(AppConstants.stableId.rawValue, isEqualTo: User.currentId) : FirebaseReference(.Emergency)
+        
+        query.addSnapshotListener() { (querySnapshot, error) in
 
             guard let documents = querySnapshot?.documents else {
                 print("no document for recent chats")

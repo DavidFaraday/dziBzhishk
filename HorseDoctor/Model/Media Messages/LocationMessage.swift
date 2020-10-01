@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 import MessageKit
-//done
+
 class LocationMessage: NSObject, LocationItem {
 
     var location: CLLocation

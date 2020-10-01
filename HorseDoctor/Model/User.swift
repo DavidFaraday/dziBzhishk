@@ -20,9 +20,8 @@ struct User: Codable, Equatable {
     var telephone: String
     var mobilePhone: String
     var isOnboardingCompleted: Bool
-    var userType: String
+    var userType: UserType
     var isOnline: Bool
-
     
     static var currentId: String {
         return Auth.auth().currentUser!.uid
@@ -67,7 +66,7 @@ func createDummyUsers() {
         FileStorage.uploadImage(UIImage(named: "user\(ImageIndex)")!, directory: fileDirectory) { (avatarLink) in
 
             
-            let user = User(id: id, name: names[i], email: "owner\(UserIndex)@mail.com", pushId: "", avatarLink: avatarLink ?? "", address: "Address \(UserIndex)", telephone: "98765544", mobilePhone: "000999888", isOnboardingCompleted: false, userType: UserType.Owner.rawValue, isOnline: false)
+            let user = User(id: id, name: names[i], email: "owner\(UserIndex)@mail.com", pushId: "", avatarLink: avatarLink ?? "", address: "Address \(UserIndex)", telephone: "98765544", mobilePhone: "000999888", isOnboardingCompleted: false, userType: .Owner, isOnline: false)
 
             UserIndex += 1
             FirebaseUserListener.shared.saveUserToFireStore(user)

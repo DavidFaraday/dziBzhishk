@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var repeatPasswordTextField: UITextField!
-    
+    @IBOutlet weak var secretKeyTextField: UITextField!
     
     //MARK: - View LiveCycle
     override func viewDidLoad() {
@@ -48,7 +48,9 @@ class LoginViewController: UIViewController {
     
     private func registerUser() {
         
-        FirebaseAuthService.shared.registerUserWith(email: emailTextField.text!, password: passwordTextField.text!) { (error) in
+        let type: UserType = secretKeyTextField.text == "1" ? .Doctor : .Stable
+        
+        FirebaseAuthService.shared.registerUserWith(with: emailTextField.text!, password: passwordTextField.text!, type: type) { (error) in
             
             if error == nil {
                 
@@ -73,9 +75,12 @@ class LoginViewController: UIViewController {
     
     //MARK: - Navigation
     private func finishLogin() {
-        
+        print("finish login func")
         if let isOnboardingCompleted = User.currentUser?.isOnboardingCompleted {
             isOnboardingCompleted ? goToApp() : goToFinishRegistration()
+        }
+        else {
+            print("no onboarding")
         }
     }
     

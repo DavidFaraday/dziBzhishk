@@ -8,39 +8,32 @@
 import UIKit
 
 class UsersTableViewController: UITableViewController {
-
-    //MARK: - IBOutlets
-    @IBOutlet weak var userSegmentOutlet: UISegmentedControl!
-    @IBOutlet weak var headerView: UIView!
     
     //MARK: - Vars
-    var allOwners:[User] = []
-    var allDoctors:[User] = []
+    var allUsers:[User] = []
 
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.tableHeaderView = headerView
         navigationItem.largeTitleDisplayMode = .always
         
-        downloadOwnerUsers()
-        downloadDoctors()
+        downloadUsers()
     }
 
     // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return userSegmentOutlet.selectedSegmentIndex == 0 ? allOwners.count : allDoctors.count
+        return allUsers.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UserTableViewCell
 
-        userSegmentOutlet.selectedSegmentIndex == 0 ? cell.configure(user: allOwners[indexPath.row]) : cell.configure(user: allDoctors[indexPath.row])
-
+        cell.configure(user: allUsers[indexPath.row])
+        
         return cell
     }
     
@@ -49,50 +42,32 @@ class UsersTableViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let user = userSegmentOutlet.selectedSegmentIndex == 0 ? allOwners[indexPath.row] : allDoctors[indexPath.row]
-
-        showUserProfile(user)
+        showUserProfile(allUsers[indexPath.row])
     }
 
 
 
     
     //MARK: - Download users
-    private func downloadOwnerUsers() {
-        FirebaseUserListener.shared.downloadUserType(with: UserType.Owner) { (allOwners) in
-
-            self.allOwners = allOwners
-
-            if self.userSegmentOutlet.selectedSegmentIndex == 0 {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    private func downloadDoctors() {
+    private func downloadUsers() {
         
-        FirebaseUserListener.shared.downloadUserType(with: UserType.Doctor) { (allDoctors) in
+        let type: UserType = User.currentUser!.userType == .Doctor ? .Stable : .Doctor
+        
+        FirebaseUserListener.shared.downloadUserType(with: type) { (allUsers) in
 
-            self.allDoctors = allDoctors
+            self.allUsers = allUsers
 
-            if self.userSegmentOutlet.selectedSegmentIndex == 1 {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
     }
     
-    //MARK: - IBActions
-    @IBAction func userSegmentValueChanged(_ sender: UISegmentedControl) {
-        tableView.reloadData()
-    }
-    
+  
     
     //MARK: - Navigation
     private func showUserProfile(_ user: User) {
+        
         let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ProfileView") as! UserProfileTableViewController
         
         profileVc.user = user

@@ -25,7 +25,7 @@ enum SegueType: String {
     case emergencyToEmergencyDetailSeg
 }
 
-enum UserType: String {
+enum UserType: String, Codable {
     case Stable
     case Doctor
     case Owner

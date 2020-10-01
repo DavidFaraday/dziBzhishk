@@ -19,7 +19,11 @@ class EmergencyTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
-        listenForEmergencies()
+        listenForEmergencies(for: User.currentUser!.userType)
+        
+        if User.currentUser!.userType == UserType.Stable {
+            configureRightBarButton()
+        }
     }
 
     // MARK: - Table view data source
@@ -41,19 +45,24 @@ class EmergencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let segueId = User.currentUser!.userType == .Stable ? SegueType.emergencyToAddEmergencySeg.rawValue : SegueType.emergencyToEmergencyDetailSeg.rawValue
+        
+        performSegue(withIdentifier: segueId, sender: allEmergencies[indexPath.row])
     }
 
 
     
-    //MARK: - IBActions
-    @IBAction func addEmergencyBarButtonPressed(_ sender: Any) {
+    //MARK: - Actions
+    @objc func addEmergencyBarButtonPressed() {
         
         performSegue(withIdentifier: SegueType.emergencyToAddEmergencySeg.rawValue, sender: self)
     }
     
     //MARK: - Download
-    private func listenForEmergencies() {
-        FirebaseEmergencyAlertListener.shared.listenForEmergencyAlerts { (allEmergencies) in
+    private func listenForEmergencies(for userType: UserType) {
+        
+        FirebaseEmergencyAlertListener.shared.listenForEmergencyAlerts(for: userType) { (allEmergencies) in
             
             self.allEmergencies = allEmergencies
             
@@ -66,7 +75,25 @@ class EmergencyTableViewController: UITableViewController {
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if segue.identifier == SegueType.emergencyToEmergencyDetailSeg.rawValue {
+            
+            let detailVc = segue.destination as! EmergencyDetailTableViewController
+            
+            detailVc.emergency = sender as? EmergencyAlert
+        }
+        
+        if segue.identifier == SegueType.emergencyToAddEmergencySeg.rawValue {
+            
+            let editVc = segue.destination as! AddEmergencyTableViewController
+            
+            editVc.emergencyToEdit = sender as? EmergencyAlert
+        }
 
+    }
+
+    //MARK: - UISetup
+    private func configureRightBarButton() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addEmergencyBarButtonPressed))
     }
 
 
