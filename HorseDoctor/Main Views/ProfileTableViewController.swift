@@ -45,8 +45,10 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 0 && indexPath.row == 0 {
+        if indexPath == IndexPath(row: 0, section: 0) {
             performSegue(withIdentifier: SegueType.profileToEditProfileSeg.rawValue, sender: self)
+        } else if indexPath == IndexPath(row: 0, section: 1) {
+            performSegue(withIdentifier: SegueType.profileToHorsesSeg.rawValue, sender: self)
         }
     }
 
@@ -65,9 +67,7 @@ class ProfileTableViewController: UITableViewController {
                     self.present(loginView, animated: true, completion: nil)
                 }
             }
-        }
-
-        
+        }       
     }
     
     //MARK: - Update UI

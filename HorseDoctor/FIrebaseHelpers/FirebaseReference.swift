@@ -15,6 +15,7 @@ enum FCollectionReference: String {
     case Typing
     case Channel
     case Emergency
+    case Horses
 }
 
 

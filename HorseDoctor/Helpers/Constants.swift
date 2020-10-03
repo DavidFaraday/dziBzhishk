@@ -12,10 +12,18 @@ enum EmergencyType: String, CaseIterable {
     case Orthopaedic, Gynaecology, Colic, Other
 }
 
+enum HorseSex: String, CaseIterable {
+    
+    case Male, Female
+}
+
+
 
 enum LoginType {
     case Login
     case Registration
+    case ForgotPassword
+    case ResendVerificationMail
 }
 
 enum SegueType: String {
@@ -23,6 +31,8 @@ enum SegueType: String {
     case profileToEditProfileSeg
     case emergencyToAddEmergencySeg
     case emergencyToEmergencyDetailSeg
+    case horseToAddHorseSeg
+    case profileToHorsesSeg
 }
 
 enum UserType: String, Codable {

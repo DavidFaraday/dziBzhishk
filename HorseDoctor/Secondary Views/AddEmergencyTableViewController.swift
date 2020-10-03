@@ -29,7 +29,7 @@ class AddEmergencyTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         configureTypePickerView()
-        setTextFieldDelegate()
+        setTextFieldInputView()
         configureLeftBarButton()
         
         if emergencyToEdit != nil {
@@ -72,7 +72,7 @@ class AddEmergencyTableViewController: UITableViewController {
         descriptionTextView.layer.cornerRadius = 8
     }
     
-    private func setTextFieldDelegate() {
+    private func setTextFieldInputView() {
         typeTextField.inputView = emergencyTypePicker
     }
     

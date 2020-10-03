@@ -59,6 +59,12 @@
 		555AE9A5251BB6B100A1D14E /* EmergencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE9A4251BB6B100A1D14E /* EmergencyTableViewCell.swift */; };
 		555AE9AA251BB95200A1D14E /* EmergencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE9A9251BB95200A1D14E /* EmergencyTableViewController.swift */; };
 		555AE9AF251BBEAE00A1D14E /* AddEmergencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE9AE251BBEAE00A1D14E /* AddEmergencyTableViewController.swift */; };
+		55759DB725285F6D009AE7CF /* FirebaseHorseListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55759DB625285F6D009AE7CF /* FirebaseHorseListener.swift */; };
+		559DBD4A252799F900065C8E /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DBD49252799F900065C8E /* EditProfileTableViewController.swift */; };
+		559DBD4F2527A08E00065C8E /* HorseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DBD4E2527A08E00065C8E /* HorseTableViewCell.swift */; };
+		559DBD542527A11C00065C8E /* Horse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DBD532527A11C00065C8E /* Horse.swift */; };
+		559DBD592527A46C00065C8E /* HorsesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DBD582527A46C00065C8E /* HorsesTableViewController.swift */; };
+		559DBD5E2527A47600065C8E /* AddHorseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DBD5D2527A47600065C8E /* AddHorseTableViewController.swift */; };
 		55F124C5251720E100DB29C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124C4251720E100DB29C2 /* AppDelegate.swift */; };
 		55F124C7251720E100DB29C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124C6251720E100DB29C2 /* SceneDelegate.swift */; };
 		55F124C9251720E100DB29C2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F124C8251720E100DB29C2 /* LoginViewController.swift */; };
@@ -142,6 +148,12 @@
 		555AE9A4251BB6B100A1D14E /* EmergencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyTableViewCell.swift; sourceTree = "<group>"; };
 		555AE9A9251BB95200A1D14E /* EmergencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyTableViewController.swift; sourceTree = "<group>"; };
 		555AE9AE251BBEAE00A1D14E /* AddEmergencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmergencyTableViewController.swift; sourceTree = "<group>"; };
+		55759DB625285F6D009AE7CF /* FirebaseHorseListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHorseListener.swift; sourceTree = "<group>"; };
+		559DBD49252799F900065C8E /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		559DBD4E2527A08E00065C8E /* HorseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseTableViewCell.swift; sourceTree = "<group>"; };
+		559DBD532527A11C00065C8E /* Horse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horse.swift; sourceTree = "<group>"; };
+		559DBD582527A46C00065C8E /* HorsesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorsesTableViewController.swift; sourceTree = "<group>"; };
+		559DBD5D2527A47600065C8E /* AddHorseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHorseTableViewController.swift; sourceTree = "<group>"; };
 		55EE2B52251E61C50070D0C3 /* HorseDoctor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HorseDoctor.entitlements; sourceTree = "<group>"; };
 		55F124C1251720E100DB29C2 /* HorseDoctor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HorseDoctor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F124C4251720E100DB29C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -223,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				5525BEDD2517295100F34229 /* User.swift */,
+				559DBD532527A11C00065C8E /* Horse.swift */,
 				5525BF902517A3D200F34229 /* RecentChat.swift */,
 				555AE99C251BAEAB00A1D14E /* EmergencyAlert.swift */,
 				553757C025190F87003B5BCD /* BasicAudioController.swift */,
@@ -241,6 +254,7 @@
 			children = (
 				55F125232517287100DB29C2 /* FirebaseAutService.swift */,
 				5525BF0225173D0F00F34229 /* FirebaseUserListener.swift */,
+				55759DB625285F6D009AE7CF /* FirebaseHorseListener.swift */,
 				5525BF9D2517A44400F34229 /* FirebaseRecentListener.swift */,
 				5537580C2519121C003B5BCD /* FirebaseMessageListener.swift */,
 				55375841251917D7003B5BCD /* FirebaseTypingListener.swift */,
@@ -266,6 +280,7 @@
 			children = (
 				5525BF872517A29100F34229 /* RecentChatTableViewCell.swift */,
 				5525BFAA2517E36300F34229 /* UserTableViewCell.swift */,
+				559DBD4E2527A08E00065C8E /* HorseTableViewCell.swift */,
 				555AE9A4251BB6B100A1D14E /* EmergencyTableViewCell.swift */,
 			);
 			path = CustomCells;
@@ -311,6 +326,9 @@
 				553D823A25263D82008A8716 /* HorseProfileTableViewController.swift */,
 				555AE9AE251BBEAE00A1D14E /* AddEmergencyTableViewController.swift */,
 				551A4648251CFC1800C6C530 /* EmergencyDetailTableViewController.swift */,
+				559DBD49252799F900065C8E /* EditProfileTableViewController.swift */,
+				559DBD582527A46C00065C8E /* HorsesTableViewController.swift */,
+				559DBD5D2527A47600065C8E /* AddHorseTableViewController.swift */,
 				5537586425191A8A003B5BCD /* ChatViewExtensions */,
 			);
 			path = "Secondary Views";
@@ -655,6 +673,7 @@
 				55F124C9251720E100DB29C2 /* LoginViewController.swift in Sources */,
 				551F9147251A696800BE4FBD /* UserProfileTableViewController.swift in Sources */,
 				55375842251917D7003B5BCD /* FirebaseTypingListener.swift in Sources */,
+				559DBD4A252799F900065C8E /* EditProfileTableViewController.swift in Sources */,
 				553757DB251910CB003B5BCD /* PhotoMessage.swift in Sources */,
 				5525BF992517A3FF00F34229 /* Extensions.swift in Sources */,
 				55375804251911DE003B5BCD /* RealmManager.swift in Sources */,
@@ -688,14 +707,19 @@
 				5537584725191956003B5BCD /* LocationManager.swift in Sources */,
 				5537581725191377003B5BCD /* MKSender.swift in Sources */,
 				5525BF882517A29100F34229 /* RecentChatTableViewCell.swift in Sources */,
+				559DBD542527A11C00065C8E /* Horse.swift in Sources */,
 				5537587325191B94003B5BCD /* StartChat.swift in Sources */,
 				553757C625190FB0003B5BCD /* MKMessage.swift in Sources */,
 				553757D6251910A6003B5BCD /* IncomingMessage.swift in Sources */,
 				553757FF251911C6003B5BCD /* LocalMessage.swift in Sources */,
+				559DBD4F2527A08E00065C8E /* HorseTableViewCell.swift in Sources */,
 				555AE998251BAE5500A1D14E /* FirebaseEmergencyAlertListener.swift in Sources */,
 				553757C125190F87003B5BCD /* BasicAudioController.swift in Sources */,
 				5525BFAB2517E36300F34229 /* UserTableViewCell.swift in Sources */,
 				553DB390251F0C6600F82D88 /* PushNotifications.swift in Sources */,
+				559DBD5E2527A47600065C8E /* AddHorseTableViewController.swift in Sources */,
+				559DBD592527A46C00065C8E /* HorsesTableViewController.swift in Sources */,
+				55759DB725285F6D009AE7CF /* FirebaseHorseListener.swift in Sources */,
 				55F124C7251720E100DB29C2 /* SceneDelegate.swift in Sources */,
 				553757FA2519119D003B5BCD /* AudioRecorder.swift in Sources */,
 				553757BC25190F4B003B5BCD /* ChatViewController.swift in Sources */,

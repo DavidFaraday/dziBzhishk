@@ -1,75 +1,96 @@
 //
-//  FinishRegistrationTableViewController.swift
+//  EditProfileTableViewController.swift
 //  HorseDoctor
 //
-//  Created by David Kababyan on 20/09/2020.
+//  Created by David Kababyan on 02/10/2020.
 //
 
 import UIKit
-import ProgressHUD
 import Gallery
+import ProgressHUD
 
-class FinishRegistrationTableViewController: UITableViewController {
+class EditProfileTableViewController: UITableViewController {
 
     //MARK: - IBOutlets
-    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var addressTextField: UITextField!
-    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var phoneTextFields: UITextField!
     @IBOutlet weak var mobileTextField: UITextField!
-    @IBOutlet weak var doneButtonOutlet: UIButton!
-
+    @IBOutlet weak var addressTextField: UITextField!
+    
     //MARK: - Vars
     var gallery: GalleryController!
-    var avatarImageLink = ""
-    
+
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.tableHeaderView = headerView
+        tableView.tableFooterView = UIView()
+        setupUI()
         configureAvatarTapGesture()
     }
 
     //MARK: - IBActions
-    @IBAction func cancelButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        
+        isDataInputed() ? saveUser() : ProgressHUD.showError("All fields are required")
     }
     
-    @IBAction func doneButtonPressed(_ sender: Any) {
-
-        isDataInputed() ? finishRegistration() : ProgressHUD.showError("All Fields Are Required")
-    }
     
     @objc func avatarImageTap() {
         showImageGallery()
     }
-    
-    //MARK: - Registration
-    private func finishRegistration() {
-        
-        if var currentUser = User.currentUser {
-            
-            currentUser.name = nameTextField.text!
-            currentUser.address = addressTextField.text!
-            currentUser.telephone = phoneNumberTextField.text!
-            currentUser.mobilePhone = mobileTextField.text!
-            currentUser.isOnboardingCompleted = true
-            currentUser.avatarLink = avatarImageLink
 
-            FirebaseUserListener.shared.saveUserLocally(currentUser)
-            FirebaseUserListener.shared.saveUserToFireStore(currentUser)
-            
-            goToApp()
-        }
+    
+    private func saveUser() {
+        
+        guard var currentUser = User.currentUser else { return }
+
+        currentUser.name = nameTextField.text!
+        currentUser.mobilePhone = mobileTextField.text!
+        currentUser.telephone = phoneTextFields.text!
+        currentUser.address = addressTextField.text!
+        
+        FirebaseUserListener.shared.saveUserLocally(currentUser)
+        FirebaseUserListener.shared.saveUserToFireStore(currentUser)
+        
+        ProgressHUD.showSuccess("User updated!")
     }
 
     
-    //MARK: - Helpers
-    private func isDataInputed() -> Bool {
+    //MARK: - TableView Delegate
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+       let headerView = UIView()
+        headerView.backgroundColor = UIColor(named: "tableBackgroundColor")
+        return headerView
+    }
 
-        return nameTextField.text != "" && addressTextField.text != ""  && phoneNumberTextField.text != "" && mobileTextField.text != ""
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+
+    //MARK: - SetupUI
+    private func setupUI() {
+        
+        guard let currentUser = User.currentUser else { return }
+        
+        nameTextField.text = currentUser.name
+        phoneTextFields.text = currentUser.telephone
+        mobileTextField.text = currentUser.mobilePhone
+        addressTextField.text = currentUser.address
+        
+        setAvatarImage(with: currentUser.avatarLink)
+    }
+
+    private func setAvatarImage(with link: String) {
+        
+        if link != "" {
+            FileStorage.downloadImage(imageUrl: link) { (avatarImage) in
+                self.avatarImageView.image = avatarImage?.circleMasked
+            }
+        } else {
+            self.avatarImageView.image = UIImage(named: "avatar")
+        }
     }
     
     //MARK: - Configurations
@@ -79,15 +100,12 @@ class FinishRegistrationTableViewController: UITableViewController {
         avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarImageTap)))
     }
 
-    
-    //MARK: - Navigation
-    private func goToApp() {
-        
-        let appView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainApp")
-        
-        appView.modalPresentationStyle = .fullScreen
-        self.present(appView, animated: true, completion: nil)
+    //MARK: - Helpers
+    private func isDataInputed() -> Bool {
+
+        return nameTextField.text != "" && addressTextField.text != "" && phoneTextFields.text != "" && mobileTextField.text != ""
     }
+
     
     //MARK: - Gallery
     private func showImageGallery() {
@@ -111,14 +129,16 @@ class FinishRegistrationTableViewController: UITableViewController {
 
         FileStorage.uploadImage(image, directory: fileDirectory) { (avatarLink) in
             
-            self.avatarImageLink = avatarLink ?? ""
+            if var user = User.currentUser {
+                user.avatarLink = avatarLink ?? ""
+            }
         }
     }
 
 }
 
 
-extension FinishRegistrationTableViewController: GalleryControllerDelegate {
+extension EditProfileTableViewController: GalleryControllerDelegate {
     
     func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
         

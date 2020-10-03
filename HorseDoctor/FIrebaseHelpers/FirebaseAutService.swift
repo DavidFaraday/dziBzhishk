@@ -16,16 +16,18 @@ class FirebaseAuthService {
 
     
     //MARK: - Login
-    func loginUserWith(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
+    func loginUser(with email: String, password: String, completion: @escaping (_ error: Error?, _ isEmailVerified: Bool) -> Void) {
 
         print("<<<<Debug Login User")
         Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
 
-            if error == nil {
+            if error == nil && authDataResult!.user.isEmailVerified {
                 FirebaseUserListener.shared.downloadCurrentUser(with: authDataResult!.user.uid)
+                
+                completion(error, true)
+            } else {
+                completion(error, false)
             }
-            
-            completion(error)
         }
     }
 
@@ -39,7 +41,9 @@ class FirebaseAuthService {
             completion(error)
 
             if error == nil {
-
+                
+                authDataResult!.user.sendEmailVerification(completion: nil)
+                
                 //create user and save it
                 if authDataResult?.user != nil {
                     let user = User(id: authDataResult!.user.uid, name: email, email: email, pushId: "", avatarLink: "", address: "", telephone: "", mobilePhone: "", isOnboardingCompleted: false, userType: type, isOnline: false)
@@ -50,6 +54,26 @@ class FirebaseAuthService {
             }
         })
     }
+    
+    //MARK: - Reset Password
+    func resetPassword(for email: String, completion: @escaping (_ error: Error?) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            completion(error)
+        }
+    }
+
+    //MARK: - Resend verification
+    func resendVerificationEmail(to email: String, completion: @escaping (_ error: Error?) -> Void ) {
+
+        Auth.auth().currentUser?.reload(completion: { (error) in
+
+            Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
+
+                completion(error)
+            })
+        })
+    }
+
 
     //MARK: - LogOut
     func logOutCurrentUser(completion: @escaping (_ error: Error?) -> Void) {

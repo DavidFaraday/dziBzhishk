@@ -11,35 +11,86 @@ import ProgressHUD
 class LoginViewController: UIViewController {
     
     //MARK: - IBOutlets
+    
+    //Labels
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var repeatPasswordLabel: UILabel!
+    @IBOutlet weak var secretKeyLabel: UILabel!
+    @IBOutlet weak var signUpLabel: UILabel!
+    
+    //TextFields
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var repeatPasswordTextField: UITextField!
     @IBOutlet weak var secretKeyTextField: UITextField!
     
+    //Buttons
+    @IBOutlet weak var loginButtonOutlet: UIButton!
+    @IBOutlet weak var signUpButtonOutlet: UIButton!
+    @IBOutlet weak var resendEmailButtonOutlet: UIButton!
+    
+    //Views
+    @IBOutlet weak var repeatPasswordLineView: UIView!
+    @IBOutlet weak var secretKeyLineView: UIView!
+    
+    //MARK: - Vars
+    var isLogin = true
+
+    
+    
     //MARK: - View LiveCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        updateUIFor(login: true)
+        setupTextFieldDelegates()
+        setupBackgroundTap()
     }
     
     //MARK: - IBActions
     @IBAction func loginButtonPressed(_ sender: Any) {
-        isDataInputed(for: .Login) ? loginUser() : ProgressHUD.showError("Email and password is required!")
+        
+        if isDataInputed(for: isLogin ? .Login : .Registration) {
+            
+            isLogin ? loginUser() : registerUser()
+        } else {
+            ProgressHUD.showFailed("All fields are requires!")
+            
+        }
     }
     
-    @IBAction func registerButtonPressed(_ sender: Any) {
-        isDataInputed(for: .Registration) ? registerUser() : ProgressHUD.showFailed("All fields are requires!")
+    @IBAction func forgotPasswordButtonPressed(_ sender: Any) {
+        
+        isDataInputed(for: .ForgotPassword) ? resetPassword() : ProgressHUD.showFailed("Email is requires!")
     }
+    
+    @IBAction func resendEmailButtonPressed(_ sender: Any) {
+        isDataInputed(for: .ResendVerificationMail) ? resendVerificationEmail() : ProgressHUD.showFailed("Email is requires!")
+    }
+    
+    @IBAction func signUpButtonPressed(_ sender: UIButton) {
+        updateUIFor(login: sender.titleLabel?.text == "Login")
+        isLogin.toggle()
+
+    }
+    
     
     //MARK: - Login/Registration
     private func loginUser() {
         
-        FirebaseAuthService.shared.loginUserWith(email: emailTextField.text!, password: passwordTextField.text!) { (error) in
+        FirebaseAuthService.shared.loginUser(with: emailTextField.text!, password: passwordTextField.text!) { (error, isEmailVerified) in
             
             if error == nil {
                 
-                self.finishLogin()
+                if isEmailVerified {
+                    self.finishLogin()
+                } else {
+                    ProgressHUD.showFailed("Please verify email.")
+                    
+                    self.resendEmailButtonOutlet.isHidden = false
+                }
+
             } else {
                 ProgressHUD.showFailed(error!.localizedDescription)
             }
@@ -61,6 +112,87 @@ class LoginViewController: UIViewController {
         }
     }
 
+    private func resendVerificationEmail() {
+        
+        FirebaseAuthService.shared.resendVerificationEmail(to: emailTextField.text!) { (error) in
+            
+            if error == nil {
+                ProgressHUD.showSucceed("New verification email sent.")
+            } else {
+                ProgressHUD.showFailed(error!.localizedDescription)
+            }
+        }
+    } 
+    
+    private func resetPassword() {
+        
+        FirebaseAuthService.shared.resetPassword(for: emailTextField.text!) { (error) in
+            if error == nil {
+                ProgressHUD.showSucceed("Reset link sent to email.")
+            } else {
+                ProgressHUD.showFailed(error!.localizedDescription)
+            }
+        }
+    }
+
+
+    //MARK: - Animations
+    private func updateUIFor(login: Bool) {
+
+        self.loginButtonOutlet.setImage(UIImage(named: login ? "loginBtn" : "registerBtn"), for: .normal)
+        
+        self.signUpButtonOutlet.setTitle(login ? "SignUp" : "Login", for: .normal)
+
+        self.signUpLabel.text = login ? "Don't have an account?" : "Have an account?"
+
+        UIView.animate(withDuration: 0.5) {
+
+            self.repeatPasswordTextField.isHidden = login
+            self.repeatPasswordLabel.isHidden = login
+            self.repeatPasswordLineView.isHidden = login
+            
+            self.secretKeyLabel.isHidden = login
+            self.secretKeyTextField.isHidden = login
+            self.secretKeyLineView.isHidden = login
+        }
+    }
+
+    private func updatePlaceholderLabels(textField: UITextField) {
+
+        switch textField {
+        case emailTextField:
+            emailLabel.text = textField.hasText ? "Email" : ""
+        case passwordTextField:
+            passwordLabel.text = textField.hasText ? "Password" : ""
+        case repeatPasswordTextField:
+            repeatPasswordLabel.text = textField.hasText ? "Repeat Password" : ""
+        default:
+            secretKeyLabel.text = textField.hasText ? "Secret Key" : ""
+        }
+
+    }
+
+    //MARK: - Setup
+    private func setupTextFieldDelegates() {
+        emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        repeatPasswordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        secretKeyTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        updatePlaceholderLabels(textField: textField)
+    }
+
+    private func setupBackgroundTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func backgroundTap() {
+        view.endEditing(false)
+    }
+
     
     //MARK: - Helpers
     private func isDataInputed(for loginType: LoginType) -> Bool {
@@ -70,6 +202,8 @@ class LoginViewController: UIViewController {
             return emailTextField.text != "" && passwordTextField.text != ""
         case .Registration:
             return emailTextField.text != "" && passwordTextField.text != "" && repeatPasswordTextField.text != "" && passwordTextField.text == repeatPasswordTextField.text
+        case .ForgotPassword, .ResendVerificationMail:
+           return  emailTextField.text != ""
         }
     }
     

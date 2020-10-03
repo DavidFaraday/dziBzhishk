@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EmptyDataSet_Swift
 
 class RecentChatsTableViewController: UITableViewController {
 
@@ -21,6 +22,10 @@ class RecentChatsTableViewController: UITableViewController {
 
 //        createDummyUsers()
         tableView.tableFooterView = UIView()
+
+        //Shows empty data view when no news are stored
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
 
         downloadRecentChats()
         setupSearchController()
@@ -130,3 +135,19 @@ extension RecentChatsTableViewController: UISearchResultsUpdating {
     
 }
 
+extension RecentChatsTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        
+        return NSAttributedString(string: "No recent chats to display!")
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "noMessage")?.withTintColor(UIColor.systemGray)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        return NSAttributedString(string: "You can start new chat by clicking on user.")
+    }
+    
+}
