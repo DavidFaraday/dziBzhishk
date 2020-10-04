@@ -213,7 +213,7 @@ class AddHorseTableViewController: UITableViewController {
     
     private func uploadAvatarImage(_ image: UIImage) {
         
-        FileStorage.saveFileLocally(fileData: image.jpegData(compressionQuality: 1.0)! as NSData, fileName:  User.currentId)
+        FileStorage.saveFileLocally(fileData: image.jpegData(compressionQuality: 1.0)! as NSData, fileName:  horseId)
 
         
         let fileDirectory = "Horses/" + "_" + "\(horseId)" + ".jpg"

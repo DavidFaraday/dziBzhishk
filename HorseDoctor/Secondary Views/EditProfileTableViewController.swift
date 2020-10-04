@@ -20,6 +20,7 @@ class EditProfileTableViewController: UITableViewController {
     
     //MARK: - Vars
     var gallery: GalleryController!
+    var avatarLink = ""
 
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -50,7 +51,8 @@ class EditProfileTableViewController: UITableViewController {
         currentUser.mobilePhone = mobileTextField.text!
         currentUser.telephone = phoneTextFields.text!
         currentUser.address = addressTextField.text!
-        
+        currentUser.avatarLink = avatarLink
+            
         FirebaseUserListener.shared.saveUserLocally(currentUser)
         FirebaseUserListener.shared.saveUserToFireStore(currentUser)
         
@@ -129,9 +131,7 @@ class EditProfileTableViewController: UITableViewController {
 
         FileStorage.uploadImage(image, directory: fileDirectory) { (avatarLink) in
             
-            if var user = User.currentUser {
-                user.avatarLink = avatarLink ?? ""
-            }
+            self.avatarLink = avatarLink ?? ""
         }
     }
 

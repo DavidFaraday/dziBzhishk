@@ -15,22 +15,25 @@ class AddEmergencyTableViewController: UITableViewController {
     @IBOutlet weak var typeTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionBackgroundView: UIView!
-    @IBOutlet weak var horseIdTextField: UITextField!
+    @IBOutlet weak var horseChipIdLabel: UILabel!
     
     //MARK: - Vars
     var emergencyTypePicker = UIPickerView()
     var selectedEmergencyType = EmergencyType.Orthopaedic.rawValue
     
     var emergencyToEdit: EmergencyAlert?
+    var selectedHorseId = ""
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
+        
         configureTypePickerView()
         setTextFieldInputView()
         configureLeftBarButton()
+        configureHorseChipLabelTap()
         
         if emergencyToEdit != nil {
             setupEditView()
@@ -80,6 +83,8 @@ class AddEmergencyTableViewController: UITableViewController {
         titleTextField.text = emergencyToEdit!.title
         typeTextField.text = emergencyToEdit!.type
         descriptionTextView.text = emergencyToEdit!.description
+        selectedHorseId = emergencyToEdit!.horseId
+        horseChipIdLabel.text = emergencyToEdit!.horseChipId
     }
     
     //MARK: -  Configuration
@@ -108,6 +113,11 @@ class AddEmergencyTableViewController: UITableViewController {
     private func configureLeftBarButton() {
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(self.backButtonPressed))]
     }
+    
+    private func configureHorseChipLabelTap() {
+        horseChipIdLabel.isUserInteractionEnabled = true
+        horseChipIdLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showSelectHorseView)))
+    }
 
 
     //MARK: - TableView Delegate
@@ -115,20 +125,23 @@ class AddEmergencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row == 3 {
+        if indexPath.row == 2 {
+            
+            showSelectHorseView()
+        } else if indexPath.row == 3 {
             print("attach image")
         }
     }
     
     //MARK: - Helpers
     private func isDataInputed() -> Bool {
-        return titleTextField.text != "" && typeTextField.text != "" && descriptionTextView.text != "" && horseIdTextField.text != ""
+        return titleTextField.text != "" && typeTextField.text != "" && descriptionTextView.text != "" && horseChipIdLabel.text != ""
     }
 
     //MARK: - Save emergency
     private func saveEmergency() {
         
-        let emergency = EmergencyAlert(id: UUID().uuidString, horseId: horseIdTextField.text!, stableId: User.currentUser!.id, stableName: User.currentUser!.name, title: titleTextField.text!, type: selectedEmergencyType, description: descriptionTextView.text, mediaLink: "", isResponded: false, respondingDoctorId: "", respondingDoctorName: "", respondedDate: Date())
+        let emergency = EmergencyAlert(id: UUID().uuidString, horseId: selectedHorseId, horseChipId: horseChipIdLabel.text!, stableId: User.currentUser!.id, stableName: User.currentUser!.name, title: titleTextField.text!, type: selectedEmergencyType, description: descriptionTextView.text, mediaLink: "", isResponded: false, respondingDoctorId: "", respondingDoctorName: "", respondedDate: Date())
         
         FirebaseEmergencyAlertListener.shared.save(emergency: emergency)
         
@@ -139,11 +152,31 @@ class AddEmergencyTableViewController: UITableViewController {
         emergencyToEdit!.title = titleTextField.text!
         emergencyToEdit!.type = typeTextField.text!
         emergencyToEdit!.description = descriptionTextView.text!
+        emergencyToEdit!.horseId = selectedHorseId
+        emergencyToEdit!.horseChipId = horseChipIdLabel.text!
         
         FirebaseEmergencyAlertListener.shared.save(emergency: emergencyToEdit!)
     }
-
+    
+    //MARK: - Navigation
+    @objc private func showSelectHorseView() {
+        
+        let horseView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "allHorsesView") as! AllHorsesTableViewController
+        horseView.delegate = self
+        horseView.selectedHorseId = horseChipIdLabel.text
+        
+        navigationController?.pushViewController(horseView, animated: true)
+    }
 }
+
+extension AddEmergencyTableViewController: AllHorsesTableViewControllerDelegate {
+    
+    func didSelect(horse: Horse) {
+        self.horseChipIdLabel.text = horse.chipId
+        self.selectedHorseId = horse.id
+    }
+}
+
 
 extension AddEmergencyTableViewController: UIPickerViewDelegate {
     

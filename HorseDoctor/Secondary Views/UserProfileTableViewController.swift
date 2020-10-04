@@ -20,7 +20,7 @@ class UserProfileTableViewController: UITableViewController {
     
     //MARK: - Vars
     var user: User?
-
+    var userId: String?
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -29,7 +29,25 @@ class UserProfileTableViewController: UITableViewController {
         navigationItem.largeTitleDisplayMode = .never
         tableView.tableFooterView = UIView()
         
-        setupUI()
+        if userId != nil {
+            downloadUser()
+        }
+    }
+    
+    private func downloadUser() {
+        
+        FirebaseUserListener.shared.downloadUser(with: [userId!]) { (users) in
+            
+            if users.count > 0 {
+                
+                self.user = users.first!
+                
+                DispatchQueue.main.async {
+                    self.setupUI()
+                }
+            }
+        }
+
     }
 
     //MARK: - Tableview Delegates

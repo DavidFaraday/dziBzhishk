@@ -12,6 +12,7 @@ struct EmergencyAlert: Codable {
     
     let id: String
     var horseId: String
+    var horseChipId: String
     var stableId: String
     var stableName: String
     var title: String

@@ -12,7 +12,7 @@ class EmergencyDetailTableViewController: UITableViewController {
     //MARK: - IBOutlets
     @IBOutlet weak var respondButtonOutlet: UIButton!
     @IBOutlet weak var stableNameLabel: UILabel!
-    @IBOutlet weak var horseIdLabel: UILabel!
+    @IBOutlet weak var horseChipIdLabel: UILabel!
     @IBOutlet weak var emergencyTitleLabel: UILabel!
     @IBOutlet weak var emergencyTypeLabel: UILabel!
     @IBOutlet weak var emergencyDateLabel: UILabel!
@@ -65,7 +65,7 @@ class EmergencyDetailTableViewController: UITableViewController {
     private func setupUI() {
         self.title = emergency.stableName
         stableNameLabel.text = "Stable: " + emergency.stableName
-        horseIdLabel.text = "Horse Id: " + emergency.horseId
+        horseChipIdLabel.text = "Chip Id: " + emergency.horseChipId
         emergencyTitleLabel.text = "Title: " + emergency.title
         emergencyTypeLabel.text = "Type: " + emergency.type
         emergencyDateLabel.text = "Date: " + emergency.date!.dateTime()
@@ -129,41 +129,22 @@ class EmergencyDetailTableViewController: UITableViewController {
     }
 
     
-    private func showStableProfile(with stableId: String) {
+    private func showStableProfile(with userId: String) {
         
-        FirebaseUserListener.shared.downloadUser(with: [stableId]) { (users) in
-            
-            if users.count > 0 {
-                
-                let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ProfileView") as! UserProfileTableViewController
-                
-                profileVc.user = users.first!
-                
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(profileVc, animated: true)
-                }
-            }
-        }
+        let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ProfileView") as! UserProfileTableViewController
+        
+        profileVc.userId = userId
+        
+        self.navigationController?.pushViewController(profileVc, animated: true)
     }
     
     private func showHorseProfile(with horseId: String) {
         
         let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HorseProfileView") as! HorseProfileTableViewController
+        
+        profileVc.horseId = horseId
+        
         self.navigationController?.pushViewController(profileVc, animated: true)
-
-//        FirebaseUserListener.shared.downloadUser(with: [horseId]) { (horses) in
-//
-//            if users.count > 0 {
-//
-//        let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HorseProfileView") as! HorseProfileTableViewController
-//
-//                profileVc.horse = horses.first!
-//
-//                DispatchQueue.main.async {
-//        self.navigationController?.pushViewController(profileVc, animated: true)
-//                }
-//            }
-//        }
     }
 
 

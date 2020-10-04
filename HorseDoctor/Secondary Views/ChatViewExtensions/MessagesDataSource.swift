@@ -56,13 +56,9 @@ extension ChatViewController: MessagesDataSource {
     //MARK: - Message Bottom Label
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
 
-        if indexPath.section != mkmessages.count - 1 {
-            let font = UIFont.boldSystemFont(ofSize: 10)
-            let color = UIColor.darkGray
-            return NSAttributedString(string: message.sentDate.time(), attributes: [.font: font, .foregroundColor: color])
-        } else {
-            return nil
-        }
+        let font = UIFont.boldSystemFont(ofSize: 10)
+        let color = UIColor.darkGray
+        return NSAttributedString(string: message.sentDate.time(), attributes: [.font: font, .foregroundColor: color])
     }
 }
 

@@ -59,6 +59,7 @@
 		555AE9A5251BB6B100A1D14E /* EmergencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE9A4251BB6B100A1D14E /* EmergencyTableViewCell.swift */; };
 		555AE9AA251BB95200A1D14E /* EmergencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE9A9251BB95200A1D14E /* EmergencyTableViewController.swift */; };
 		555AE9AF251BBEAE00A1D14E /* AddEmergencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AE9AE251BBEAE00A1D14E /* AddEmergencyTableViewController.swift */; };
+		556D4B552528C064003DCB90 /* AllHorsesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556D4B542528C064003DCB90 /* AllHorsesTableViewController.swift */; };
 		55759DB725285F6D009AE7CF /* FirebaseHorseListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55759DB625285F6D009AE7CF /* FirebaseHorseListener.swift */; };
 		559DBD4A252799F900065C8E /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DBD49252799F900065C8E /* EditProfileTableViewController.swift */; };
 		559DBD4F2527A08E00065C8E /* HorseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DBD4E2527A08E00065C8E /* HorseTableViewCell.swift */; };
@@ -148,6 +149,7 @@
 		555AE9A4251BB6B100A1D14E /* EmergencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyTableViewCell.swift; sourceTree = "<group>"; };
 		555AE9A9251BB95200A1D14E /* EmergencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyTableViewController.swift; sourceTree = "<group>"; };
 		555AE9AE251BBEAE00A1D14E /* AddEmergencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmergencyTableViewController.swift; sourceTree = "<group>"; };
+		556D4B542528C064003DCB90 /* AllHorsesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHorsesTableViewController.swift; sourceTree = "<group>"; };
 		55759DB625285F6D009AE7CF /* FirebaseHorseListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHorseListener.swift; sourceTree = "<group>"; };
 		559DBD49252799F900065C8E /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		559DBD4E2527A08E00065C8E /* HorseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseTableViewCell.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				551A4648251CFC1800C6C530 /* EmergencyDetailTableViewController.swift */,
 				559DBD49252799F900065C8E /* EditProfileTableViewController.swift */,
 				559DBD582527A46C00065C8E /* HorsesTableViewController.swift */,
+				556D4B542528C064003DCB90 /* AllHorsesTableViewController.swift */,
 				559DBD5D2527A47600065C8E /* AddHorseTableViewController.swift */,
 				5537586425191A8A003B5BCD /* ChatViewExtensions */,
 			);
@@ -693,6 +696,7 @@
 				5525BF912517A3D200F34229 /* RecentChat.swift in Sources */,
 				5537585625191A1B003B5BCD /* MessagesDisplayDelegate.swift in Sources */,
 				5537586625191AAB003B5BCD /* MapViewViewController.swift in Sources */,
+				556D4B552528C064003DCB90 /* AllHorsesTableViewController.swift in Sources */,
 				5537586E25191AE6003B5BCD /* MapAnnotation.swift in Sources */,
 				5525BF0325173D0F00F34229 /* FirebaseUserListener.swift in Sources */,
 				5525BEDE2517295100F34229 /* User.swift in Sources */,
