@@ -20,26 +20,26 @@ class PushNotificationService {
             for user in users {
 
                 let title = User.currentUser?.name ?? "User"
-                
+
                 self.sendMessageToUser(to: user.pushId, title: title, body: body, chatRoomId: chatRoomId)
             }
         }
     }
     
-    func sendEmergencyPushNotification(to userType: UserType, body: String) {
+    func sendEmergencyPushNotification(to userType: UserType, body: String, emergencyId: String) {
         
-        FirebaseUserListener.shared.downloadUserType(with: userType) { (users) in
+        FirebaseUserListener.shared.downloadDoctorsForPush { (users) in
                    
             for user in users {
                 let title = "\(User.currentUser!.name)  Emergency"
-                
-                self.sendMessageToUser(to: user.pushId, title: title, body: body)
+
+                self.sendMessageToUser(to: user.pushId, title: title, body: body, emergencyId: emergencyId)
             }
         }
     }
 
 
-    private func sendMessageToUser(to token: String, title: String, body: String, chatRoomId: String = "") {
+    private func sendMessageToUser(to token: String, title: String, body: String, chatRoomId: String = "", emergencyId: String = "") {
         
         let urlString = "https://fcm.googleapis.com/fcm/send"
         
@@ -53,7 +53,8 @@ class PushNotificationService {
                                              "sound" : "default"
                                             ],
                                            "data" : ["chatRoomId" : chatRoomId,
-                                                     "senderId" : User.currentId
+                                                     "senderId" : User.currentId,
+                                                     "emergencyId" : emergencyId
                                                     ]
             //this is to pass extra info with message
         ]

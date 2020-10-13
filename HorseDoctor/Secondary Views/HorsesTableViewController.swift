@@ -27,8 +27,8 @@ class HorsesTableViewController: UITableViewController {
         self.tableView.refreshControl = self.refreshControl
 
         //Shows empty data view when no news are stored
-        tableView.emptyDataSetSource = self
-        tableView.emptyDataSetDelegate = self
+//        tableView.emptyDataSetSource = self
+//        tableView.emptyDataSetDelegate = self
         
         setupSearchController()
         downloadHorses()
@@ -164,21 +164,21 @@ extension HorsesTableViewController: UISearchResultsUpdating {
 
 
 
-extension HorsesTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
-    
-    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        
-        return NSAttributedString(string: "No horses to display!")
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
-        
-        
-        return UIImage(named: "horse")?.withTintColor(UIColor.systemGray)
-    }
-    
-    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        return NSAttributedString(string: "Click on plus button to create one.")
-    }
-    
-}
+//extension HorsesTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
+//    
+//    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+//        
+//        return NSAttributedString(string: "No horses to display!")
+//    }
+//    
+//    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+//        
+//        
+//        return UIImage(named: "horse")?.withTintColor(UIColor.systemGray)
+//    }
+//    
+//    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+//        return NSAttributedString(string: "Click on plus button to create one.")
+//    }
+//    
+//}

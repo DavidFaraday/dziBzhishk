@@ -40,6 +40,35 @@ class FirebaseEmergencyAlertListener {
         }
     }
 
+    func downloadEmergencyAlerts(with id: String, completion: @escaping (_ allRecents: EmergencyAlert?) -> Void) {
+
+
+        FirebaseReference(.Emergency).document(id).getDocument { (querySnapshot, error) in
+            
+            guard let document = querySnapshot else {
+                print("no document for StableUser")
+                completion(nil)
+                return
+            }
+
+            let result = Result {
+                try? document.data(as: EmergencyAlert.self)
+            }
+
+            switch result {
+            case .success(let emergencyObject):
+                
+                if let emergency = emergencyObject {
+
+                    completion(emergency)
+                }
+            case .failure:
+                
+                completion(nil)
+            }
+        }
+    }
+
     
     //MARK: - Add Update Delete
     /// Saves Specific Emergency Object to firebase

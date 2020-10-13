@@ -32,8 +32,9 @@ class FileStorage {
                 ProgressHUD.dismiss()
 
                 if error != nil {
-
+                    #if DEBUG
                     print("error uploading document \(error!.localizedDescription)")
+                    #endif
                     return
                 }
 
@@ -58,7 +59,9 @@ class FileStorage {
             }
 
         } else {
+            #if DEBUG
             print("No Internet Connection!")
+            #endif
         }
     }
     
@@ -72,7 +75,6 @@ class FileStorage {
             if let contentsOfFile = UIImage(contentsOfFile: fileInDocumentsDirectory(filename: imageFileName)) {
                 completion(contentsOfFile)
             } else {
-                print("couldn't generate local image")
                 completion(UIImage(named: "avatar"))
             }
 
@@ -102,7 +104,9 @@ class FileStorage {
 
                     } else {
                         DispatchQueue.main.async {
-                            print("No document in database")
+                            #if DEBUG
+                            print("No image in database")
+                            #endif
                             completion(nil)
                         }
                     }
@@ -130,7 +134,9 @@ class FileStorage {
                 ProgressHUD.dismiss()
 
                 if error != nil {
+                    #if DEBUG
                     print("error uploading video \(error!.localizedDescription)")
+                    #endif
                     return
                 }
                 
@@ -153,7 +159,9 @@ class FileStorage {
             
             
         } else {
+            #if DEBUG
             print("No Internet Connection!")
+            #endif
         }
         
     }
@@ -185,7 +193,9 @@ class FileStorage {
                     }
                     
                 } else {
+                    #if DEBUG
                     print("No Video in database")
+                    #endif
                 }
             }
         }
@@ -213,7 +223,9 @@ class FileStorage {
                         ProgressHUD.dismiss()
                         
                         if error != nil {
+                            #if DEBUG
                             print("error uploading audio \(error!.localizedDescription)")
+                            #endif
                             return
                         }
                         
@@ -236,15 +248,21 @@ class FileStorage {
                     
                     
                 } else {
+                    #if DEBUG
                     print("nil data")
+                    #endif
                 }
                 
             } else {
+                #if DEBUG
                 print("NOTHING TO UPLOAD")
+                #endif
             }
             
         } else {
+            #if DEBUG
             print("No Internet Connection!")
+            #endif
         }
         
     }
@@ -275,7 +293,9 @@ class FileStorage {
                     }
 
                 } else {
+                    #if DEBUG
                     print("No audio in database")
+                    #endif
                 }
             }
         }

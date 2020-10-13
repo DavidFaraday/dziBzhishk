@@ -29,7 +29,6 @@ class FirebaseMessageListener {
                 
                 if change.type == .added {
                     
-                    print("listenForNewChats added new message in firebase")
                     
                     let result = Result {
                         try? change.document.data(as: LocalMessage.self)
@@ -45,7 +44,9 @@ class FirebaseMessageListener {
                             
                         }
                     case .failure(let error):
+                        #if DEBUG
                         print("Error decoding local message: \(error)")
+                        #endif
                     }
                 }
             }
@@ -58,7 +59,9 @@ class FirebaseMessageListener {
         FirebaseReference(.Messages).document(documentId).collection(collectionId).getDocuments { (querySnapshot, error) in
             
             guard let documents = querySnapshot?.documents else {
+                #if DEBUG
                 print("no document for old chats")
+                #endif
                 return
             }
             
@@ -97,7 +100,9 @@ class FirebaseMessageListener {
                         }
                         
                     case .failure(let error):
+                        #if DEBUG
                         print("Error decoding local message: \(error)")
+                        #endif
                     }
                 }
             }
@@ -129,8 +134,9 @@ class FirebaseMessageListener {
 
             FirebaseReference(.Messages).document(userId).collection(message.chatRoomId).document(message.id).updateData(values)
         }
-        
+        #if DEBUG
         print("updated both messages status to Read")
+        #endif
     }
     
     

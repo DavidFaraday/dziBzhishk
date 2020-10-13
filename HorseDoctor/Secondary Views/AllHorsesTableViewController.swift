@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import EmptyDataSet_Swift
 
 protocol AllHorsesTableViewControllerDelegate {
     func didSelect(horse: Horse)
@@ -22,6 +21,7 @@ class AllHorsesTableViewController: UITableViewController {
     
     var selectedHorseId: String?
     var delegate: AllHorsesTableViewControllerDelegate?
+    var userId: String?
     
     //MARK: - ViewLifeCycle
     override func viewDidLoad() {
@@ -29,10 +29,10 @@ class AllHorsesTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         self.title = "My Horses"
-        
-        //Shows empty data view when no news are stored
-//        tableView.emptyDataSetSource = self
-//        tableView.emptyDataSetDelegate = self
+                
+        if userId == nil {
+            userId = User.currentId
+        }
         
         setupSearchController()
         downloadHorses()
@@ -66,10 +66,13 @@ class AllHorsesTableViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         let horse = searchController.isActive ? filteredHorses[indexPath.row] : allHorses[indexPath.row]
-
-        delegate?.didSelect(horse: horse)
         
-        navigationController?.popViewController(animated: true)
+        if userId == User.currentId {
+            delegate?.didSelect(horse: horse)
+            navigationController?.popViewController(animated: true)
+        } else {
+            showHorseProfile(with: horse.id)
+        }
     }
 
     
@@ -87,10 +90,11 @@ class AllHorsesTableViewController: UITableViewController {
     
     //MARK: - Download
     private func downloadHorses() {
-        FirebaseHorseListener.shared.downloadHorses(for: User.currentId) { (allHorses) in
+
+        FirebaseHorseListener.shared.downloadHorses(for: userId!) { (allHorses) in
             
             self.allHorses = allHorses
-            
+
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -118,6 +122,14 @@ class AllHorsesTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
+    private func showHorseProfile(with horseId: String) {
+        
+        let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HorseProfileView") as! HorseProfileTableViewController
+        
+        profileVc.horseId = horseId
+        self.navigationController?.pushViewController(profileVc, animated: true)
+    }
+
 }
 
 extension AllHorsesTableViewController: UISearchResultsUpdating {
@@ -128,21 +140,4 @@ extension AllHorsesTableViewController: UISearchResultsUpdating {
 }
 
 
-//extension AllHorsesTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
-//    
-//    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-//        
-//        return NSAttributedString(string: "No horses to display!")
-//    }
-//    
-//    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
-//        
-//        
-//        return UIImage(named: "horse")?.withTintColor(UIColor.systemGray)
-//    }
-//    
-//    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-//        return NSAttributedString(string: "Click on plus button to create one.")
-//    }
-//    
-//}
+

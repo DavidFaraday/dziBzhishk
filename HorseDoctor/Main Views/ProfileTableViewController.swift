@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class ProfileTableViewController: UITableViewController {
 
@@ -14,6 +15,7 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var mobilePhoneLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
+    @IBOutlet weak var availableSwitchOutlet: UISwitch!
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -57,18 +59,43 @@ class ProfileTableViewController: UITableViewController {
     
     @IBAction func logOutButtonPressed(_ sender: Any) {
         
-        FirebaseAuthService.shared.logOutCurrentUser { (error) in
+        ProgressHUD.show()
+        
+        FirebaseAuthService.shared.prepareForLogOut { (readyToLogOut) in
             
-            if error == nil {
-                let loginView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginVIew")
+            if readyToLogOut {
+                FirebaseAuthService.shared.logOutCurrentUser { (error) in
+                    
+                    if error == nil {
+                        let loginView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginView")
 
-                DispatchQueue.main.async {
-                    loginView.modalPresentationStyle = .fullScreen
-                    self.present(loginView, animated: true, completion: nil)
+                        DispatchQueue.main.async {
+                            loginView.modalPresentationStyle = .fullScreen
+                            self.present(loginView, animated: true, completion: nil)
+                        }
+                    }
                 }
+
+            } else {
+                ProgressHUD.showError("Couldn't logout")
             }
-        }       
+        }
+        
     }
+    
+    @IBAction func availableSwitchValueChanged(_ sender: UISwitch) {
+        
+        guard var user = User.currentUser else {
+            return
+        }
+        
+        user.isAvailable = sender.isOn
+        
+        FirebaseUserListener.shared.saveUserLocally(user)
+        FirebaseUserListener.shared.saveUserToFireStore(user)
+    }
+    
+    
     
     //MARK: - Update UI
     private func showUserInfo() {
@@ -76,6 +103,8 @@ class ProfileTableViewController: UITableViewController {
             nameLabel.text = user.name
             mobilePhoneLabel.text = "Mobile " + user.mobilePhone
             appVersionLabel.text = "App Version \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+            
+            availableSwitchOutlet.isOn = user.isAvailable ?? false
             
             if user.avatarLink != "" {
                 FileStorage.downloadImage(imageUrl: user.avatarLink) { (avatarImage) in

@@ -6,13 +6,36 @@
 //
 
 import Foundation
+import UIKit
+import AVFoundation
+
 
 let userDefaults = UserDefaults.standard
 
+func updateUserPushId(newPushId: String) {
+    
+    if var user = User.currentUser {
+        user.pushId = newPushId
+        
+        FirebaseUserListener.shared.saveUserLocally(user)
+        FirebaseUserListener.shared.saveUserToFireStore(user)
+    }
 
-import Foundation
-import UIKit
-import AVFoundation
+    userDefaults.setValue(newPushId, forKey: AppConstants.pushId.rawValue)
+}
+
+func setUser(isOnline online: Bool) {
+    
+    if var currentUser = User.currentUser {
+        if currentUser.isOnboardingCompleted {
+            currentUser.isOnline = online
+            
+            FirebaseUserListener.shared.saveUserLocally(currentUser)
+            FirebaseUserListener.shared.saveUserToFireStore(currentUser)
+        }
+    }
+}
+
 
 func removerCurrentUserFrom(userIds: [String]) -> [String] {
     

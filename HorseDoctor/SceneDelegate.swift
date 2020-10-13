@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        
+        setUser(isOnline: true)
         LocationManager.shared.startUpdating()
         resetBudge()
     }
@@ -45,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        
+        setUser(isOnline: false)
         LocationManager.shared.stopUpdating()
         resetBudge()
     }
@@ -59,8 +59,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             if user != nil && userDefaults.object(forKey: AppConstants.CurrentUser.rawValue) != nil {
 
-                DispatchQueue.main.async {
-                    self.goToApp()
+                if let currentUser = User.currentUser {
+                    if currentUser.isOnboardingCompleted {
+                        DispatchQueue.main.async {
+                            self.goToApp()
+                        }
+                    }
                 }
             }
         }
@@ -76,6 +80,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func resetBudge() {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
-
+    
 }
 

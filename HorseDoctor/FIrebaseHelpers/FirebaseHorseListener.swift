@@ -19,7 +19,9 @@ class FirebaseHorseListener {
         FirebaseReference(.Horses).document(horseId).getDocument { (querySnapshot, error) in
 
             guard let document = querySnapshot else {
+                #if DEBUG
                 print("no document for Horse")
+                #endif
                 return
             }
 
@@ -33,7 +35,9 @@ class FirebaseHorseListener {
                 completion(horseObject!)
                 
             case .failure(let error):
+                #if DEBUG
                 print("<<<<Debug Error decoding Horse: \(error)")
+                #endif
             }
         }
     }
@@ -49,7 +53,9 @@ class FirebaseHorseListener {
             FirebaseReference(.Horses).document(id).getDocument { (querySnapshot, error) in
 
                 guard let document = querySnapshot else {
+                    #if DEBUG
                     print("no document for horse per id")
+                    #endif
                     completion(horseArray)
                     return
                 }
@@ -68,10 +74,12 @@ class FirebaseHorseListener {
 
     func downloadHorses(for stableId: String, completion: @escaping (_ horses: [Horse]) -> Void ) {
         
-        FirebaseReference(.Horses).whereField(AppConstants.stableId.rawValue, isEqualTo: User.currentId).getDocuments { (querySnapshot, error) in
+        FirebaseReference(.Horses).whereField(AppConstants.stableId.rawValue, isEqualTo: stableId).getDocuments { (querySnapshot, error) in
             
             guard let documents = querySnapshot?.documents else {
+                #if DEBUG
                 print("no document for all users")
+                #endif
                 return
             }
 
@@ -89,9 +97,13 @@ class FirebaseHorseListener {
     func saveHorse(_ horse: Horse) {
         do {
             let _ = try FirebaseReference(.Horses).document(horse.id).setData(from: horse)
+            #if DEBUG
             print("<<<<Debug Saved FB horse")
+            #endif
         } catch {
+            #if DEBUG
             print("<<<<Debug adding horse, ", error.localizedDescription)
+            #endif
         }
     }
     

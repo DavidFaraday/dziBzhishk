@@ -17,6 +17,9 @@ class UserProfileTableViewController: UITableViewController {
     @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var mobileLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var aboutTextView: UITextView!
+    @IBOutlet weak var availableLabel: UILabel!
+    
     
     //MARK: - Vars
     var user: User?
@@ -31,11 +34,17 @@ class UserProfileTableViewController: UITableViewController {
         
         if userId != nil {
             downloadUser()
+        } else if user != nil {
+            setupUI()
+        }
+        
+        if User.currentUser!.userType == .Doctor {
+            showHorseProfileBarButton()
         }
     }
     
     private func downloadUser() {
-        
+
         FirebaseUserListener.shared.downloadUser(with: [userId!]) { (users) in
             
             if users.count > 0 {
@@ -47,7 +56,6 @@ class UserProfileTableViewController: UITableViewController {
                 }
             }
         }
-
     }
 
     //MARK: - Tableview Delegates
@@ -55,7 +63,7 @@ class UserProfileTableViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.section == 2 {
+        if indexPath.section == 1 {
             let chatId = startChat(user1: User.currentUser!, user2: user!)
             
             let chatView = ChatViewController(chatId: chatId, recipientId: user!.id, recipientName: user!.name)
@@ -83,11 +91,15 @@ class UserProfileTableViewController: UITableViewController {
             nameLabel.text = user!.name
             isOnlineLabel.text = user!.isOnline ? "Online" : "Offline"
             isOnlineLabel.textColor = user!.isOnline ? .systemGreen : .systemRed
+            
+            availableLabel.text = user!.isAvailable ?? false ? "Available" : "Busy"
+            availableLabel.textColor = user!.isAvailable ?? false ? .systemGreen : .systemRed
 
             emailLabel.text = user!.email
             telephoneLabel.text = user!.telephone
             mobileLabel.text = user!.mobilePhone
             addressLabel.text = user!.address
+            aboutTextView.text = user!.about
             
             
             if user!.avatarLink != "" {
@@ -96,6 +108,26 @@ class UserProfileTableViewController: UITableViewController {
                 }
             }
         }
+    }
+
+    
+    private func showHorseProfileBarButton() {
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "horse"), style: .plain, target: self, action: #selector(self.horseProfileButtonPressed))
+    }
+    
+    //MARK: - Actions
+    @objc private func horseProfileButtonPressed() {
+        showAllHorsesView()
+    }
+    
+    //MARK: - Navigation
+    @objc private func showAllHorsesView() {
+        
+        let horseView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "allHorsesView") as! AllHorsesTableViewController
+        
+        horseView.userId = user?.id
+        navigationController?.pushViewController(horseView, animated: true)
     }
 
 }

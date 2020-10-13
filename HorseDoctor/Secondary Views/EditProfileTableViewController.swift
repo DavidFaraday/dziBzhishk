@@ -17,6 +17,9 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var phoneTextFields: UITextField!
     @IBOutlet weak var mobileTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var aboutTextView: UITextView!
+    @IBOutlet weak var aboutBackgroundView: UIView!
+    
     
     //MARK: - Vars
     var gallery: GalleryController!
@@ -52,7 +55,8 @@ class EditProfileTableViewController: UITableViewController {
         currentUser.telephone = phoneTextFields.text!
         currentUser.address = addressTextField.text!
         currentUser.avatarLink = avatarLink
-            
+        currentUser.about = aboutTextView.text
+        
         FirebaseUserListener.shared.saveUserLocally(currentUser)
         FirebaseUserListener.shared.saveUserToFireStore(currentUser)
         
@@ -80,6 +84,8 @@ class EditProfileTableViewController: UITableViewController {
         phoneTextFields.text = currentUser.telephone
         mobileTextField.text = currentUser.mobilePhone
         addressTextField.text = currentUser.address
+        avatarLink = currentUser.avatarLink
+        aboutTextView.text = currentUser.about
         
         setAvatarImage(with: currentUser.avatarLink)
     }

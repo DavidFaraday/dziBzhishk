@@ -16,6 +16,7 @@ class AddEmergencyTableViewController: UITableViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionBackgroundView: UIView!
     @IBOutlet weak var horseChipIdLabel: UILabel!
+    @IBOutlet weak var respondedDoctorNameLabel: UILabel!
     
     //MARK: - Vars
     var emergencyTypePicker = UIPickerView()
@@ -46,7 +47,6 @@ class AddEmergencyTableViewController: UITableViewController {
             
             emergencyToEdit != nil ? updateEmergency() : saveEmergency()
 
-            PushNotificationService.shared.sendEmergencyPushNotification(to: .Doctor, body: descriptionTextView.text!)
             
             navigationController?.popViewController(animated: true)
         } else {
@@ -85,6 +85,8 @@ class AddEmergencyTableViewController: UITableViewController {
         descriptionTextView.text = emergencyToEdit!.description
         selectedHorseId = emergencyToEdit!.horseId
         horseChipIdLabel.text = emergencyToEdit!.horseChipId
+        
+        respondedDoctorNameLabel.text = emergencyToEdit!.isResponded ? "Responded by \(emergencyToEdit!.respondingDoctorName)" : "No response"
     }
     
     //MARK: -  Configuration
@@ -125,11 +127,17 @@ class AddEmergencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row == 2 {
-            
+        switch indexPath.row {
+        case 2:
             showSelectHorseView()
-        } else if indexPath.row == 3 {
+        case 3:
+            if emergencyToEdit != nil && emergencyToEdit!.isResponded {
+                showUserProfile(with: emergencyToEdit!.respondingDoctorId)
+            }
+        case 4:
             print("attach image")
+        default:
+            return
         }
     }
     
@@ -145,6 +153,7 @@ class AddEmergencyTableViewController: UITableViewController {
         
         FirebaseEmergencyAlertListener.shared.save(emergency: emergency)
         
+        PushNotificationService.shared.sendEmergencyPushNotification(to: .Doctor, body: descriptionTextView.text!, emergencyId: emergency.id)
     }
 
     private func updateEmergency() {
@@ -167,6 +176,16 @@ class AddEmergencyTableViewController: UITableViewController {
         
         navigationController?.pushViewController(horseView, animated: true)
     }
+    
+    private func showUserProfile(with userId: String) {
+        
+        let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ProfileView") as! UserProfileTableViewController
+        
+        profileVc.userId = userId
+        
+        self.navigationController?.pushViewController(profileVc, animated: true)
+    }
+
 }
 
 extension AddEmergencyTableViewController: AllHorsesTableViewControllerDelegate {

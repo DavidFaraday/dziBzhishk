@@ -65,14 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           completionHandler: {_, _ in })
 
     }
-    private func updateUserPushId(newPushId: String) {
-        
-        if var user = User.currentUser {
-            user.pushId = newPushId
-            FirebaseUserListener.shared.saveUserLocally(user)
-            FirebaseUserListener.shared.saveUserToFireStore(user)
-        }
-    }
 
 }
 
@@ -109,8 +101,17 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 let chatView = ChatViewController(chatId: userInfo["chatRoomId"] as! String, recipientId: userInfo["senderId"] as! String, recipientName: titleFromNotification(payload: userInfo))
                 
                 navController.pushViewController(chatView, animated: true)
-                
             }
+            
+            
+            //check if its a emergency notification
+            if userInfo["emergencyId"] != nil && userInfo["emergencyId"] as! String != "" {
+
+                let emergencyView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "EmergencyDetailView") as! EmergencyDetailTableViewController
+                emergencyView.emergencyId = userInfo["emergencyId"] as! String
+                navController.pushViewController(emergencyView, animated: true)
+            }
+
         }
     }
 

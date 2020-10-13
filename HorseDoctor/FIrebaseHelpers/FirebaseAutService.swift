@@ -18,13 +18,14 @@ class FirebaseAuthService {
     //MARK: - Login
     func loginUser(with email: String, password: String, completion: @escaping (_ error: Error?, _ isEmailVerified: Bool) -> Void) {
 
-        print("<<<<Debug Login User")
         Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
 
             if error == nil && authDataResult!.user.isEmailVerified {
-                FirebaseUserListener.shared.downloadCurrentUser(with: authDataResult!.user.uid)
-                
-                completion(error, true)
+                FirebaseUserListener.shared.downloadCurrentUser(with: authDataResult!.user.uid) { (isSuccess) in
+                    
+                    completion(error, true)
+                }
+
             } else {
                 completion(error, false)
             }
@@ -34,7 +35,6 @@ class FirebaseAuthService {
     //MARK: - Register
     func registerUserWith(with email: String, password: String, type: UserType, completion: @escaping (_ error: Error?) -> Void ) {
         
-        print("<<<<Debug Register User")
 
         Auth.auth().createUser(withEmail: email, password: password, completion: { (authDataResult, error) in
 
@@ -46,7 +46,7 @@ class FirebaseAuthService {
                 
                 //create user and save it
                 if authDataResult?.user != nil {
-                    let user = User(id: authDataResult!.user.uid, name: email, email: email, pushId: "", avatarLink: "", address: "", telephone: "", mobilePhone: "", isOnboardingCompleted: false, userType: type, isOnline: false)
+                    let user = User(id: authDataResult!.user.uid, name: email, email: email, pushId: "", avatarLink: "", address: "", telephone: "", mobilePhone: "", isOnboardingCompleted: false, userType: type, isOnline: false, isAvailable: false, about: "")
                                         
                     FirebaseUserListener.shared.saveUserLocally(user)
                     FirebaseUserListener.shared.saveUserToFireStore(user)
@@ -76,10 +76,27 @@ class FirebaseAuthService {
 
 
     //MARK: - LogOut
+    func prepareForLogOut(completion: @escaping (_ redyToLogOut: Bool) -> Void) {
+        
+        guard var currentUser = User.currentUser else { return }
+        
+        currentUser.pushId = ""
+        currentUser.isAvailable = false
+        currentUser.isOnline = false
+        
+        FirebaseUserListener.shared.saveUserLocally(currentUser)
+        FirebaseUserListener.shared.saveUserToFireStore(currentUser) { (didSave) in
+
+            completion(didSave)
+        }
+    }
+    
     func logOutCurrentUser(completion: @escaping (_ error: Error?) -> Void) {
 
         do {
+            #if DEBUG
             print("<<<<Debug Log out")
+            #endif
             try Auth.auth().signOut()
 
             userDefaults.removeObject(forKey: AppConstants.CurrentUser.rawValue)

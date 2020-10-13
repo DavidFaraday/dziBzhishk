@@ -43,13 +43,15 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateUIFor(login: true)
+        updateUIForLoginType()
         setupTextFieldDelegates()
         setupBackgroundTap()
     }
     
     //MARK: - IBActions
     @IBAction func loginButtonPressed(_ sender: Any) {
+        
+        ProgressHUD.show()
         
         if isDataInputed(for: isLogin ? .Login : .Registration) {
             
@@ -70,9 +72,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
-        updateUIFor(login: sender.titleLabel?.text == "Login")
         isLogin.toggle()
-
+        updateUIForLoginType()
     }
     
     
@@ -90,7 +91,8 @@ class LoginViewController: UIViewController {
                     
                     self.resendEmailButtonOutlet.isHidden = false
                 }
-
+                
+                ProgressHUD.dismiss()
             } else {
                 ProgressHUD.showFailed(error!.localizedDescription)
             }
@@ -137,23 +139,23 @@ class LoginViewController: UIViewController {
 
 
     //MARK: - Animations
-    private func updateUIFor(login: Bool) {
+    private func updateUIForLoginType() {
 
-        self.loginButtonOutlet.setImage(UIImage(named: login ? "loginBtn" : "registerBtn"), for: .normal)
+        self.loginButtonOutlet.setTitle(isLogin ? "Login" : "SignUp", for: .normal)
         
-        self.signUpButtonOutlet.setTitle(login ? "SignUp" : "Login", for: .normal)
+        self.signUpButtonOutlet.setTitle(isLogin ? "SignUp" : "Login", for: .normal)
 
-        self.signUpLabel.text = login ? "Don't have an account?" : "Have an account?"
+        self.signUpLabel.text = isLogin ? "Don't have an account?" : "Have an account?"
 
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5) { [self] in
 
-            self.repeatPasswordTextField.isHidden = login
-            self.repeatPasswordLabel.isHidden = login
-            self.repeatPasswordLineView.isHidden = login
+            repeatPasswordTextField.isHidden = isLogin
+            repeatPasswordLabel.isHidden = isLogin
+            repeatPasswordLineView.isHidden = isLogin
             
-            self.secretKeyLabel.isHidden = login
-            self.secretKeyTextField.isHidden = login
-            self.secretKeyLineView.isHidden = login
+            secretKeyLabel.isHidden = isLogin
+            secretKeyTextField.isHidden = isLogin
+            secretKeyLineView.isHidden = isLogin
         }
     }
 
@@ -209,12 +211,19 @@ class LoginViewController: UIViewController {
     
     //MARK: - Navigation
     private func finishLogin() {
-        print("finish login func")
-        if let isOnboardingCompleted = User.currentUser?.isOnboardingCompleted {
-            isOnboardingCompleted ? goToApp() : goToFinishRegistration()
-        }
-        else {
-            print("no onboarding")
+
+        guard let currentUser =  User.currentUser else { return }
+        
+        currentUser.isOnboardingCompleted ? goToApp() : goToFinishRegistration()
+        
+        setUser(isOnline: true)
+
+        if currentUser.pushId == "" {
+            if let pushID = userDefaults.string(forKey: AppConstants.pushId.rawValue) {
+                
+                updateUserPushId(newPushId: pushID)
+            }
+
         }
     }
     

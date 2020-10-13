@@ -63,6 +63,8 @@ enum AppConstants: String {
     case userType
     case id
     case stableId
+    case pushId
+
 }
 
 public let kNUMBEROFMESSAGES = 12

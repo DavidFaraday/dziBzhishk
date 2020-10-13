@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class EmergencyDetailTableViewController: UITableViewController {
 
@@ -20,7 +21,9 @@ class EmergencyDetailTableViewController: UITableViewController {
     @IBOutlet weak var emergencyDescriptionTextView: UITextView!
 
     //MARK: - Vars
-    var emergency: EmergencyAlert!
+    var emergency: EmergencyAlert?
+    var emergencyId: String?
+    
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -28,23 +31,33 @@ class EmergencyDetailTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         
-        setupUI()
+        if emergencyId != nil {
+            
+            downloadEmergency()
+        } else if emergency != nil {
+            setupUI()
+            updateRespondButtonStatus()
+        }
+        
         setTextViewBackgroundRadius()
         configureLeftBarButton()
-        updateRespondButtonStatus()
     }
 
     //MARK: - IBActions
     @IBAction func respondButtonPressed(_ sender: Any) {
         
-        emergency.isResponded = true
-        emergency.respondingDoctorId = User.currentId
-        emergency.respondingDoctorName = User.currentUser?.name ?? "Unknown"
-        emergency.respondedDate = Date()
+        guard emergency != nil else {
+            return
+        }
         
-        PushNotificationService.shared.sendPushNotificationTo(userIds: [emergency.stableId], body: "Your emergency is accepted, the doctor will contact you.")
+        emergency!.isResponded = true
+        emergency!.respondingDoctorId = User.currentId
+        emergency!.respondingDoctorName = User.currentUser?.name ?? "Unknown"
+        emergency!.respondedDate = Date()
         
-        FirebaseEmergencyAlertListener.shared.save(emergency: emergency)
+        PushNotificationService.shared.sendPushNotificationTo(userIds: [emergency!.stableId], body: "Your emergency is accepted, the doctor will contact you.")
+        ProgressHUD.showSuccess("Responce sent!")
+        FirebaseEmergencyAlertListener.shared.save(emergency: emergency!)
     }
     
     @IBAction func declineButtonPressed(_ sender: Any) {
@@ -53,7 +66,11 @@ class EmergencyDetailTableViewController: UITableViewController {
     
     @IBAction func contactStableButtonPressed(_ sender: Any) {
         
-        openChatRoom(with: emergency.stableId)
+        guard emergency != nil else {
+            return
+        }
+
+        openChatRoom(with: emergency!.stableId)
     }
     
     @objc func backButtonPressed() {
@@ -63,13 +80,17 @@ class EmergencyDetailTableViewController: UITableViewController {
     
     //MARK: - SetupUI
     private func setupUI() {
-        self.title = emergency.stableName
-        stableNameLabel.text = "Stable: " + emergency.stableName
-        horseChipIdLabel.text = "Chip Id: " + emergency.horseChipId
-        emergencyTitleLabel.text = "Title: " + emergency.title
-        emergencyTypeLabel.text = "Type: " + emergency.type
-        emergencyDateLabel.text = "Date: " + emergency.date!.dateTime()
-        emergencyDescriptionTextView.text = emergency.description
+        guard emergency != nil else {
+            return
+        }
+        
+        self.title = emergency!.stableName
+        stableNameLabel.text = "Stable: " + emergency!.stableName
+        horseChipIdLabel.text = "Chip Id: " + emergency!.horseChipId
+        emergencyTitleLabel.text = "Title: " + emergency!.title
+        emergencyTypeLabel.text = "Type: " + emergency!.type
+        emergencyDateLabel.text = "Date: " + emergency!.date!.dateTime()
+        emergencyDescriptionTextView.text = emergency!.description
     }
     
     private func setTextViewBackgroundRadius() {
@@ -82,7 +103,11 @@ class EmergencyDetailTableViewController: UITableViewController {
     }
     
     private func updateRespondButtonStatus() {
-        respondButtonOutlet.isEnabled = !emergency.isResponded
+        guard emergency != nil else {
+            return
+        }
+
+        respondButtonOutlet.isEnabled = !emergency!.isResponded
     }
 
 
@@ -102,10 +127,14 @@ class EmergencyDetailTableViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
+        guard emergency != nil else {
+            return
+        }
+
         if indexPath == IndexPath(item: 0, section: 0) {
-            showStableProfile(with: emergency.stableId)
+            showUserProfile(with: emergency!.stableId)
         } else if indexPath == IndexPath(item: 1, section: 0) {
-            showHorseProfile(with: emergency.horseId)
+            showHorseProfile(with: emergency!.horseId)
         }
     }
 
@@ -129,7 +158,7 @@ class EmergencyDetailTableViewController: UITableViewController {
     }
 
     
-    private func showStableProfile(with userId: String) {
+    private func showUserProfile(with userId: String) {
         
         let profileVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ProfileView") as! UserProfileTableViewController
         
@@ -147,5 +176,18 @@ class EmergencyDetailTableViewController: UITableViewController {
         self.navigationController?.pushViewController(profileVc, animated: true)
     }
 
+    //MARK: - Download emergency
+    private func downloadEmergency() {
+        
+        FirebaseEmergencyAlertListener.shared.downloadEmergencyAlerts(with: emergencyId!) { (emergency) in
+            
+            self.emergency = emergency
+            
+            DispatchQueue.main.async {
+                self.setupUI()
+                self.updateRespondButtonStatus()
+            }
+        }
+    }
 
 }

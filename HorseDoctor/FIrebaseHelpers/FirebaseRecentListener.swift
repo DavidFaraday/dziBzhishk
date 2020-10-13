@@ -25,7 +25,9 @@ class FirebaseRecentListener {
             var recentChats: [RecentChat] = []
 
             guard let documents = querySnapshot?.documents else {
+                #if DEBUG
                 print("no document for recent chats")
+                #endif
                 return
             }
 
@@ -55,7 +57,9 @@ class FirebaseRecentListener {
         FirebaseReference(.Recent).whereField(AppConstants.chatRoomId.rawValue, isEqualTo: chatRoomId).getDocuments { (querySnapshot, error) in
 
             guard let documents = querySnapshot?.documents else {
+                #if DEBUG
                 print("no document for recent update")
+                #endif
                 return
             }
 
@@ -79,7 +83,9 @@ class FirebaseRecentListener {
         FirebaseReference(.Recent).whereField(AppConstants.chatRoomId.rawValue, isEqualTo: chatRoomId).whereField(AppConstants.senderId.rawValue, isEqualTo: User.currentId).getDocuments { (querySnapshot, error) in
 
             guard let documents = querySnapshot?.documents else {
+                #if DEBUG
                 print("no document for recent counter")
+                #endif
                 return
             }
 
@@ -138,7 +144,9 @@ class FirebaseRecentListener {
             let _ = try FirebaseReference(.Recent).document(recent.id).setData(from: recent)
         }
         catch {
+            #if DEBUG
             print(error.localizedDescription, "adding recent....")
+            #endif
         }
     }
 

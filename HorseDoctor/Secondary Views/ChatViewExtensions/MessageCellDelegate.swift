@@ -68,9 +68,11 @@ extension ChatViewController: MessageCellDelegate {
     func didTapPlayButton(in cell: AudioMessageCell) {
         
         guard let indexPath = messagesCollectionView.indexPath(for: cell),
-            let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
-                print("Failed to identify message when audio cell receive tap gesture")
-                return
+              let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
+            #if DEBUG
+            print("Failed to identify message when audio cell receive tap gesture")
+            #endif
+            return
         }
         guard audioController.state != .stopped else {
             // There is no audio sound playing - prepare to start playing for given audio message

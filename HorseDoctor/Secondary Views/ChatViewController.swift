@@ -109,6 +109,7 @@ class ChatViewController: MessagesViewController {
         loadChats()
         listenForNewChats()
         listenForReadStatusChange()
+        
     }
     
 
@@ -224,7 +225,7 @@ class ChatViewController: MessagesViewController {
             //updated message
             switch changes {
             case .initial:
-                print("loadChats initial from realm db")
+
                 self.insertMessages()
                 self.messagesCollectionView.reloadData()
                 self.messagesCollectionView.scrollToBottom(animated: true)
@@ -232,19 +233,16 @@ class ChatViewController: MessagesViewController {
             case .update(let deletion, _ , let insertions, _):
 
                 for index in insertions {
-                    print("loadChats insertion to realm ", self.allLocalMessages[index].message, self.allLocalMessages[index].status)
 
                     self.insertMessage(self.allLocalMessages[index])
                     self.messagesCollectionView.reloadData()
                     self.messagesCollectionView.scrollToBottom(animated: false)
                 }
-                
-                for index in deletion {
-//                    print("deleted", index)
-                }
 
             case .error(let error):
+                #if DEBUG
                 print("Error on new insertion", error.localizedDescription)
+                #endif
             }
         })
     }
@@ -266,12 +264,12 @@ class ChatViewController: MessagesViewController {
         FirebaseMessageListener.shared.listenForReadStatusChange(User.currentId, collectionId: chatId) { (updatedMessage) in
 
             if updatedMessage.status != AppConstants.sent.rawValue {
-                print("listenForReadStatusChange: updating message received from firebase",updatedMessage.message, updatedMessage.status)
 
                 self.updateMessage(updatedMessage)
             } else {
+                #if DEBUG
                 print("message update received from FB but we dont update locally",updatedMessage.message, updatedMessage.status)
-
+                #endif
             }
         }
     }
@@ -331,7 +329,6 @@ class ChatViewController: MessagesViewController {
             let tempMessage = mkmessages[index]
 
             if localMessage.id == tempMessage.messageId {
-                print("DEBUG:...updating local message in realm", localMessage.message, localMessage.status)
 
                 mkmessages[index].status = localMessage.status
                 mkmessages[index].readDate = localMessage.readDate
@@ -349,7 +346,6 @@ class ChatViewController: MessagesViewController {
 
 
         if localMessage.senderId != User.currentId && localMessage.status != AppConstants.read.rawValue  {
-            print("markMessageAsRead:...marking message as read on fb", localMessage.message, localMessage.status)
 
             FirebaseMessageListener.shared.updateMessageInFireStore(localMessage, memberIds: [User.currentId, recipientId])
         }
@@ -505,18 +501,14 @@ class ChatViewController: MessagesViewController {
                 
                 messageSend(text: nil, photo: nil, video: nil, audio: audioFileName, location: nil, audioDuration: audioD)
             } else {
+                #if DEBUG
                 print("no audio file")
+                #endif
             }
             
             audioFileName = ""
-        case .possible:
-            print("possible")
-        case .changed:
-            print("changed")
-        case .cancelled:
-            print("cancelled")
-        case .failed:
-            print("failed")
+        case .possible, .changed, .cancelled, .failed:
+            return
         @unknown default:
             print("unknown")
         }
@@ -531,7 +523,7 @@ extension ChatViewController: GalleryControllerDelegate {
     func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
         if images.count > 0 {
             images.first!.resolve(completion: { (image) in
-                print("image")
+
                 self.messageSend(text: nil, photo: image, video: nil, audio: nil, location: nil)
             })
         }
