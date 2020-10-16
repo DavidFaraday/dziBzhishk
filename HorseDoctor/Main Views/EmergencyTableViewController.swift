@@ -21,8 +21,8 @@ class EmergencyTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         //Shows empty data view when no news are stored
-        tableView.emptyDataSetSource = self
-        tableView.emptyDataSetDelegate = self
+//        tableView.emptyDataSetSource = self
+//        tableView.emptyDataSetDelegate = self
 
         
         listenForEmergencies(for: User.currentUser!.userType)
@@ -106,21 +106,21 @@ class EmergencyTableViewController: UITableViewController {
 }
 
 
-extension EmergencyTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
-    
-    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        
-        return NSAttributedString(string: "No emergencies to display!")
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
-        
-        
-        return UIImage(named: "emergency")?.withTintColor(UIColor.systemGray)
-    }
-    
-    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        return NSAttributedString(string: "")
-    }
-    
-}
+//extension EmergencyTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
+//
+//    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+//
+//        return NSAttributedString(string: "No emergencies to display!")
+//    }
+//
+//    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+//
+//
+//        return UIImage(named: "emergency")?.withTintColor(UIColor.systemGray)
+//    }
+//
+//    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+//        return NSAttributedString(string: "")
+//    }
+//
+//}

@@ -60,7 +60,8 @@ class EditProfileTableViewController: UITableViewController {
         FirebaseUserListener.shared.saveUserLocally(currentUser)
         FirebaseUserListener.shared.saveUserToFireStore(currentUser)
         
-        ProgressHUD.showSuccess("User updated!")
+//        ProgressHUD.showSuccess("User updated!")
+        self.navigationController?.popViewController(animated: true)
     }
 
     

@@ -19,16 +19,17 @@ class UsersTableViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.largeTitleDisplayMode = .always
-        tableView.tableHeaderView = headerView
         
-        downloadUsers(with: .Stable)
+        configureHeaderView()
+        
+        downloadUsers(with: .Doctor)
     }
     
     //MARK: - IBActions
     
     @IBAction func userTypeSegmentValueChanged(_ sender: UISegmentedControl) {
         
-        let type: UserType = sender.selectedSegmentIndex == 0 ? .Stable : .Doctor
+        let type: UserType = sender.selectedSegmentIndex == 0 ? .Doctor : .Stable
         downloadUsers(with: type)
     }
     
@@ -72,7 +73,24 @@ class UsersTableViewController: UITableViewController {
         }
     }
     
-  
+    //MARK: - Configuration
+    private func configureHeaderView() {
+        
+        guard let currentUser = User.currentUser else {
+            tableView.tableFooterView = UIView()
+            return
+        }
+        
+        
+        if currentUser.userType == .Doctor {
+            tableView.tableHeaderView = headerView
+            headerView.isHidden = false
+        } else {
+            tableView.tableFooterView = UIView()
+            headerView.isHidden = true
+        }
+    }
+
     
     //MARK: - Navigation
     private func showUserProfile(_ user: User) {

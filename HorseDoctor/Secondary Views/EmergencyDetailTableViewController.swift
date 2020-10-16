@@ -19,7 +19,8 @@ class EmergencyDetailTableViewController: UITableViewController {
     @IBOutlet weak var emergencyDateLabel: UILabel!
     @IBOutlet weak var textViewBackgroundView: UIView!
     @IBOutlet weak var emergencyDescriptionTextView: UITextView!
-
+    @IBOutlet weak var acceptedByLabel: UILabel!
+    
     //MARK: - Vars
     var emergency: EmergencyAlert?
     var emergencyId: String?
@@ -56,8 +57,10 @@ class EmergencyDetailTableViewController: UITableViewController {
         emergency!.respondedDate = Date()
         
         PushNotificationService.shared.sendPushNotificationTo(userIds: [emergency!.stableId], body: "Your emergency is accepted, the doctor will contact you.")
-        ProgressHUD.showSuccess("Responce sent!")
+        
+//        ProgressHUD.showSuccess("Responce sent!")
         FirebaseEmergencyAlertListener.shared.save(emergency: emergency!)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func declineButtonPressed(_ sender: Any) {
@@ -90,6 +93,8 @@ class EmergencyDetailTableViewController: UITableViewController {
         emergencyTitleLabel.text = "Title: " + emergency!.title
         emergencyTypeLabel.text = "Type: " + emergency!.type
         emergencyDateLabel.text = "Date: " + emergency!.date!.dateTime()
+        acceptedByLabel.text = "Accepted by: " + emergency!.respondingDoctorName
+        
         emergencyDescriptionTextView.text = emergency!.description
     }
     

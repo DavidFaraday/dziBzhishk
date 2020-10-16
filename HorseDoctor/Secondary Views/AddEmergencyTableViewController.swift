@@ -80,6 +80,8 @@ class AddEmergencyTableViewController: UITableViewController {
     }
     
     private func setupEditView() {
+        
+        self.title = "Edit Emergency"
         titleTextField.text = emergencyToEdit!.title
         typeTextField.text = emergencyToEdit!.type
         descriptionTextView.text = emergencyToEdit!.description
@@ -143,7 +145,7 @@ class AddEmergencyTableViewController: UITableViewController {
     
     //MARK: - Helpers
     private func isDataInputed() -> Bool {
-        return titleTextField.text != "" && typeTextField.text != "" && descriptionTextView.text != "" && horseChipIdLabel.text != ""
+        return titleTextField.text != "" && typeTextField.text != "" && descriptionTextView.text != "" && selectedHorseId != ""
     }
 
     //MARK: - Save emergency

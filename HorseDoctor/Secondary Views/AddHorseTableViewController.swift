@@ -175,6 +175,7 @@ class AddHorseTableViewController: UITableViewController {
         ProgressHUD.showSuccess("Horse created")
         
         delegate?.didFinishAddingHorse()
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func updateHorse() {
@@ -194,6 +195,7 @@ class AddHorseTableViewController: UITableViewController {
         ProgressHUD.showSuccess("Horse updated")
         
         delegate?.didFinishAddingHorse()
+        self.navigationController?.popViewController(animated: true)
     }
 
 
